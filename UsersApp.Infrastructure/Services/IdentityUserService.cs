@@ -32,12 +32,13 @@ namespace UsersApp.Infrastructure.Services
 
         public async Task<UserResultDto> SignInAsync(string email, string password)
         {
-            throw new NotImplementedException();
+            var result = await loginManager.PasswordSignInAsync(email, password, false, false);
+            return new UserResultDto(result.Succeeded ? null : "Invalid user Credentials");
         }
 
-        public async Task<UserResultDto> SignOutAsync()
+        public async Task SignOutAsync()
         {
-            throw new NotImplementedException();
+            await loginManager.SignOutAsync();
         }
     }
 }
