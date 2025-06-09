@@ -1,9 +1,12 @@
 using UsersApp.Application.Users;
+using UsersApp.Application.Books.Interfaces;
+using UsersApp.Application.Loans.Interfaces;
 using UsersApp.Infrastructure.Persistence;
 using UsersApp.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using UsersApp.Infrastructure.Persistence.Repositories;
 
 
 namespace UsersApp.Web;
@@ -13,6 +16,8 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddScoped<IBookRepository, BookRepository>();
+        builder.Services.AddScoped<ILoanRepository, LoanRepository>();
         // Configure Entity Framework and Identity
         builder.Services.AddDbContext<ApplicationContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -23,6 +28,7 @@ public class Program
         builder.Services.AddScoped<IIdentityUserService, IdentityUserService>();
         // Add controllers with views
         builder.Services.AddControllersWithViews();
+
 
 
 

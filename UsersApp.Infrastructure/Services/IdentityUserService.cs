@@ -16,13 +16,14 @@ public class IdentityUserService
 {
     public async Task<UserResultDto> CreateUserAsync(UserProfileDto user, string password)
     {
-        var result = await userManager.CreateAsync(new ApplicationUser 
-        {             
+        var result = await userManager.CreateAsync(new ApplicationUser
+        {
             FirstName = user.FirstName,
             LastName = user.LastName,
             Email = user.Email,
             DateOfCreation = DateTime.Now,
-            LastLogin = DateTime.Now
+            LastLogin = DateTime.Now,
+            Profile = new()
         }, password);
 
         return new UserResultDto(result.Errors.FirstOrDefault()?.Description);

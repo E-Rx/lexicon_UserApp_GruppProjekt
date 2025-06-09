@@ -15,7 +15,8 @@ namespace UsersApp.Infrastructure.Persistence;
 public class ApplicationContext(DbContextOptions<ApplicationContext> options)
     : IdentityDbContext<ApplicationUser, IdentityRole, string>(options)
 {
-    public DbSet<Book>? Books { get; set; } 
+    public DbSet<Book>? Books { get; set; }
+    public DbSet<Loan>? Loans { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<ApplicationUser>().ToTable("Users");

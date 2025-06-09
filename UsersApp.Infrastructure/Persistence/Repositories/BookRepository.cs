@@ -5,7 +5,7 @@ namespace UsersApp.Infrastructure.Persistence.Repositories;
 
 public class BookRepository(ApplicationContext context) : IBookRepository
 {
-    public async Task Add(Book book)
+    public async Task AddAsync(Book book)
     {
         await context.AddAsync(book);
         await context.SaveChangesAsync();
@@ -15,7 +15,7 @@ public class BookRepository(ApplicationContext context) : IBookRepository
 
     public Book? GetById(string isbn) => context.Books!.SingleOrDefault(b => b.ISBN == isbn);
 
-    public async Task Remove(Book book)
+    public async Task RemoveAsync(Book book)
     {
         context.Remove(book);
         await context.SaveChangesAsync();
