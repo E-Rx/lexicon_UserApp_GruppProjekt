@@ -14,28 +14,28 @@ namespace UsersApp.Infrastructure.Services
     ) : IIdentityUserService
 
     {
-        Task<UserResultDto> IIdentityUserService.CreateUserAsync(UserProfileDto user, string password)
+        public async Task<UserResultDto> CreateUserAsync(UserProfileDto user, string password)
         {
-            ApplicationUser applicationUser = new()
+            var result = await userManager.CreateAsync(new ApplicationUser 
             {             
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
                 DateOfCreation = DateTime.Now,
                 LastLogin = DateTime.Now
-            };
+            }, password);
 
-
+            return new UserResultDto(result.Errors.FirstOrDefault()?.Description);
                                  
                 
         }
 
-        Task<UserResultDto> IIdentityUserService.SignInAsync(string email, string password)
+        public async Task<UserResultDto> SignInAsync(string email, string password)
         {
             throw new NotImplementedException();
         }
 
-        Task<UserResultDto> IIdentityUserService.SignOutAsync()
+        public async Task<UserResultDto> SignOutAsync()
         {
             throw new NotImplementedException();
         }
