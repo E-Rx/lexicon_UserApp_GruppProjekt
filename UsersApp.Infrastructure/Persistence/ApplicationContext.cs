@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UsersApp.Domain.Entities;
 
 
 namespace UsersApp.Infrastructure.Persistence;
@@ -14,4 +15,18 @@ namespace UsersApp.Infrastructure.Persistence;
 public class ApplicationContext(DbContextOptions<ApplicationContext> options)
     : IdentityDbContext<ApplicationUser, IdentityRole, string>(options)
 {
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.Entity<ApplicationUser>().ToTable("Users");
+        builder.Entity<User>().ToTable("Users");
+
+        builder.Entity<ApplicationUser>()
+            .HasOne(u => u.Profile)
+            .WithOne()
+            .HasForeignKey<User>(d => d.Id);
+
+        builder.Entity<ApplicationUser>().Property(u => u.PasswordHash); // security
+        builder.Entity<User>().Property(d => d.DisplayName);             // business
+    }
+
 }

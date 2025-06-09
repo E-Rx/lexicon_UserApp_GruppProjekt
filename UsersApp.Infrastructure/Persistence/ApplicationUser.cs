@@ -13,4 +13,5 @@ public class ApplicationUser : IdentityUser
     public string? LastName { get; set; }
     public DateTime DateOfCreation { get; set; } 
     public DateTime LastLogin { get; set; } 
+    public required Domain.Entities.User Profile { get; set; }
 }
