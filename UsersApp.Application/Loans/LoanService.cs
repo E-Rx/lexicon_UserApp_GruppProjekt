@@ -11,4 +11,6 @@ namespace UsersApp.Infrastructure.Services
         public Loan? GetById(Guid id) => loanRepository.GetById(id);
         public async Task RemoveAsync(Loan loan) => await loanRepository.RemoveAsync(loan);
     }
+
+   
 }

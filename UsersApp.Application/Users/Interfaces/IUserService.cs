@@ -1,6 +1,6 @@
 ﻿using UsersApp.Application.Dtos;
 
-namespace UsersApp.Application.Users;
+namespace UsersApp.Application.Users.Interfaces;
 
 public interface IUserService
 {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UsersApp.Application.Dtos;
+using UsersApp.Application.Users.Interfaces;
 
 namespace UsersApp.Application.Users;
 

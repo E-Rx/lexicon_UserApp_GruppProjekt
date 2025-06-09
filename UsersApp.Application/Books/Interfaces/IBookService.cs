@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UsersApp.Application.Books.Interfaces
 {
-    internal class IBookService
+    public class IBookService
     {
     }
 }

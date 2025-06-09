@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using UsersApp.Application.Dtos;
-using UsersApp.Application.Users;
+using UsersApp.Application.Users.Interfaces;
 using UsersApp.Infrastructure.Persistence;
 
 

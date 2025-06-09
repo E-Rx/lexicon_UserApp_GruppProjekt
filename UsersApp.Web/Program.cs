@@ -1,4 +1,3 @@
-using UsersApp.Application.Users;
 using UsersApp.Application.Books.Interfaces;
 using UsersApp.Application.Loans.Interfaces;
 using UsersApp.Infrastructure.Persistence;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using UsersApp.Infrastructure.Persistence.Repositories;
+using UsersApp.Application.Users.Interfaces;
 
 
 namespace UsersApp.Web;
