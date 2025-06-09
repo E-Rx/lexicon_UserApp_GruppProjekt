@@ -1,0 +1,20 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>UsersApp</title>
+    <link rel="stylesheet" href="https://unpkg.com/@@picocss/pico@@latest/css/pico.classless.min.css">
+    @RenderSection("headScripts", required : false);
+</head>
+<body style="padding: 1rem;">
+    <nav>
+        <a asp-controller="User" asp-action="Users">Members</a>
+        <a asp-controller="User" asp-action="Register">Register</a>
+        <a asp-controller="User" asp-action="LogIn">Login</a>
+    </nav>
+    <br />
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
