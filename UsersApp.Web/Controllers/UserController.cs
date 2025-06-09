@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 
-namespace UsersApp.Web.Controllers
+namespace UsersApp.Web.Controllers;
+
+public class UserController : Controller
 {
-    public class UserController : Controller
+    public IActionResult Index()
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        return View();
     }
 }
