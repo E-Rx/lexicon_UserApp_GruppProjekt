@@ -11,11 +11,11 @@ namespace UsersApp.Domain.Entities
     public class Loan
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         [ForeignKey(nameof(Book))]
-        public int BookId { get; set; }
+        public Guid BookId { get; set; }
         [ForeignKey(nameof(User))]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public DateTime LoanDate { get; set; }
         public DateTime DueDate { get; set; }
         public DateTime? ReturnDate { get; set; } = null;

@@ -10,7 +10,7 @@ namespace UsersApp.Domain.Entities
     public class User
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string? DisplayName { get; set; }
 
     }

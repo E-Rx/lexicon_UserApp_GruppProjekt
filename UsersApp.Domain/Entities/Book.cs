@@ -10,11 +10,10 @@ namespace UsersApp.Domain.Entities
 {
     public class Book
     {
-        [Key]    
-        public int Id { get; set; }
+        [Key]
+        public string? ISBN { get; set; } 
         public string Title { get; set; } = null!;
-        public string Author { get; set; } = null!;
-        public string ISBN { get; set; } = null!;
+        public string Author { get; set; } = null!;        
         public BookStatus Status { get; set; }
         public BookCondition Condition { get; set; }
         public BookGenre Genre { get; set; }
