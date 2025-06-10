@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using UsersApp.Application.Dtos;
-using UsersApp.Application.Users.Interfaces;
+using UsersApp.Application.Interfaces;
+using UsersApp.Application.Interfaces.Users;
 using UsersApp.Domain.Entities;
 using UsersApp.Infrastructure.Persistence;
 
 namespace UsersApp.Infrastructure.Services;
 
 public class IdentityUserService
-(
-    IUserRepository userRepository,
+(    
     UserManager<ApplicationUser> userManager,   
     SignInManager<ApplicationUser> loginManager,
     RoleManager<ApplicationUser> roleManager
@@ -18,7 +18,7 @@ public class IdentityUserService
 {
 
     
-    public async Task<ResultDto> CreateUserAsync(UserProfileDto user, string password)
+    public async Task<ResultDto> CreateUserAsync(UserDto user, string password)
     {    
         var newUser = new ApplicationUser
         {
@@ -41,6 +41,8 @@ public class IdentityUserService
                 ]
             );
 
+
+
         return new ResultDto(result.Errors.FirstOrDefault()?.Description);                                       
     }
 
@@ -55,17 +57,5 @@ public class IdentityUserService
         await loginManager.SignOutAsync();
         
     }
-
-    public async Task EditAsync(string id, UserProfileDto userProfileDto)
-    {
-        await userRepository.EditAsync(id, userProfileDto);
-    }
-
-    public async Task RemoveAsync(string id)
-    {
-        await userRepository.RemoveAsync(id);
-    }
-
-
     
 }

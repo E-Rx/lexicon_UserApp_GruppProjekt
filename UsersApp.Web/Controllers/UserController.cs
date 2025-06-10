@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UsersApp.Application.Users;
+using UsersApp.Application.Services.Users;
 
 namespace UsersApp.Web.Controllers;
 

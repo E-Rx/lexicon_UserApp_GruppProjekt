@@ -1,4 +1,4 @@
-﻿using UsersApp.Application.Books.Interfaces;
+﻿using UsersApp.Application.Interfaces.Books;
 using UsersApp.Domain.Entities;
 
 namespace UsersApp.Infrastructure.Persistence.Repositories;

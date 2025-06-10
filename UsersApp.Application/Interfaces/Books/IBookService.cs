@@ -1,7 +1,7 @@
 ﻿using UsersApp.Application.Dtos;
 using UsersApp.Domain.Entities;
 
-namespace UsersApp.Application.Books.Interfaces;
+namespace UsersApp.Application.Interfaces.Books;
 
 public interface IBookService
 {

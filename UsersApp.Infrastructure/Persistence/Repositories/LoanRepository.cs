@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UsersApp.Application.Dtos;
-using UsersApp.Application.Loans.Interfaces;
+using UsersApp.Application.Interfaces.Loans;
 using UsersApp.Domain.Entities;
 
 namespace UsersApp.Infrastructure.Persistence.Repositories;

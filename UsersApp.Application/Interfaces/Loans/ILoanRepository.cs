@@ -1,7 +1,7 @@
 ﻿using UsersApp.Application.Dtos;
 using UsersApp.Domain.Entities;
 
-namespace UsersApp.Application.Loans.Interfaces;
+namespace UsersApp.Application.Interfaces.Loans;
 
 public interface ILoanRepository
 {

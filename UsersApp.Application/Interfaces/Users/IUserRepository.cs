@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using UsersApp.Application.Dtos;
 
-namespace UsersApp.Application.Users.Interfaces
+namespace UsersApp.Application.Interfaces.Users
 {
     public interface IUserRepository
     {
-        Task<object> GetById(string id);
-        Task<object[]> GetAll();
-        Task EditAsync(string id, UserProfileDto userProfileDto);
-
+        Task<UserDto> GetUserDtoById(string id);
+        Task<UserDto[]> GetAll();
+        Task EditAsync(string id, UserDto userProfileDto);
         Task RemoveAsync(string id);
+        Task UpdateLastLogin(string id);
     }
 }
