@@ -6,5 +6,5 @@ public interface IUserService
 {
     Task<ResultDto> CreateUserAsync(UserProfileDto user, string displayName, string password);
     Task<ResultDto> SignInAsync(string email, string password);
-    Task<ResultDto> SignOutAsync();
+    Task SignOutAsync();
 }
