@@ -9,12 +9,15 @@ namespace UsersApp.Infrastructure.Services;
 
 public class IdentityUserService
 (
+    IUserRepository userRepository,
     UserManager<ApplicationUser> userManager,   
     SignInManager<ApplicationUser> loginManager,
     RoleManager<ApplicationUser> roleManager
 ) : IIdentityUserService
 
 {
+
+    
     public async Task<ResultDto> CreateUserAsync(UserProfileDto user, string password)
     {    
         var newUser = new ApplicationUser
@@ -24,7 +27,7 @@ public class IdentityUserService
             Email = user.Email,
             DateOfCreation = DateTime.Now,
             LastLogin = DateTime.Now,
-            Profile = new() { DisplayName = user.displayName }
+            Profile = new() { DisplayName = user.DisplayName }
         };
 
         var result = await userManager.CreateAsync(newUser, password);
@@ -34,7 +37,7 @@ public class IdentityUserService
                 newUser,
                 [
                     new Claim("UserId", newUser.Id),
-                    new Claim("DisplayName", user.displayName)
+                    new Claim("DisplayName", user.DisplayName)
                 ]
             );
 
@@ -53,8 +56,16 @@ public class IdentityUserService
         
     }
 
-    public async Task<ResultDto> EditData(UserProfileDto user)
+    public async Task EditAsync(string id, UserProfileDto userProfileDto)
     {
-        userManager.
+        await userRepository.EditAsync(id, userProfileDto);
     }
+
+    public async Task RemoveAsync(string id)
+    {
+        await userRepository.RemoveAsync(id);
+    }
+
+
+    
 }

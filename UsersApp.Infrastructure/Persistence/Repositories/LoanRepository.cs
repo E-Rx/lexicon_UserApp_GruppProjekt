@@ -7,10 +7,10 @@ namespace UsersApp.Infrastructure.Persistence.Repositories;
 
 public class LoanRepository(ApplicationContext context) : ILoanRepository
 {
-    public async Task<ResultDto> AddAsync(Loan loan)
+    public async Task AddAsync(Loan loan)
     {
         await context.AddAsync(loan);
-        await context.SaveChangesAsync();
+        await context.SaveChangesAsync(); // TODO - Add UnitofWork    
     }
 
     public Loan[] GetAll() => [.. context.Loans!];
@@ -20,7 +20,7 @@ public class LoanRepository(ApplicationContext context) : ILoanRepository
         .SingleOrDefault(l => l.Id == id);
         
 
-    public async Task<ResultDto> RemoveAsync(Loan loan)
+    public async Task RemoveAsync(Loan loan)
     {
         context.Remove(loan);
         await context.SaveChangesAsync();

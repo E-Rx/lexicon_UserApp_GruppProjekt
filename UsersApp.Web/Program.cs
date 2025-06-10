@@ -16,6 +16,7 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IBookRepository, BookRepository>();
         builder.Services.AddScoped<ILoanRepository, LoanRepository>();
         // Configure Entity Framework and Identity

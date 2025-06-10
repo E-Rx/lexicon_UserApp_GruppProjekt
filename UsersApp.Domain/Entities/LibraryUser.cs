@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace UsersApp.Domain.Entities
 {
-    public class User
+    public class LibraryUser
     {
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();

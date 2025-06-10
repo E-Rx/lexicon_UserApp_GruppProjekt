@@ -6,8 +6,8 @@ namespace UsersApp.Application.Books.Services;
 
 public class BookService(IBookRepository bookRepository) : IBookService
 {
-    public async Task<ResultDto> AddAsync(Book book) => await bookRepository.AddAsync(book);
+    public async Task AddAsync(Book book) => await bookRepository.AddAsync(book);
     public Book[] GetAll() => bookRepository.GetAll();
     public Book? GetById(string isbn) => bookRepository.GetById(isbn);
-    public async Task<ResultDto> RemoveAsync(Book book) => await bookRepository.RemoveAsync(book);
+    public async Task RemoveAsync(Book book) => await bookRepository.RemoveAsync(book);
 }
