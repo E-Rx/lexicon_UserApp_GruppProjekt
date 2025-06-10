@@ -1,6 +1,6 @@
 ﻿namespace UsersApp.Application.Dtos;
 
-public record UserResultDto(string? ErrorMessage)
+public record ResultDto(string? ErrorMessage)
 {
     public bool Succeeded => ErrorMessage == null;
 }

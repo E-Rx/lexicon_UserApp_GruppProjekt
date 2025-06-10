@@ -1,11 +1,12 @@
-﻿using UsersApp.Domain.Entities;
+﻿using UsersApp.Application.Dtos;
+using UsersApp.Domain.Entities;
 
 namespace UsersApp.Application.Books.Interfaces;
 
 public interface IBookRepository
 {
-    Task AddAsync(Book book);
+    Task<ResultDto> AddAsync(Book book);
     Book[] GetAll();
     Book? GetById(string isbn);
-    Task RemoveAsync(Book book); 
+    Task<ResultDto> RemoveAsync(Book book); 
 }

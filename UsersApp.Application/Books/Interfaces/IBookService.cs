@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using UsersApp.Application.Dtos;
+using UsersApp.Domain.Entities;
 
-namespace UsersApp.Application.Books.Interfaces
+namespace UsersApp.Application.Books.Interfaces;
+
+public interface IBookService
 {
-    public class IBookService
-    {
-    }
+    Task<ResultDto> AddAsync(Book book);
+    Book[] GetAll();
+    Book? GetById(string isbn);
+    Task<ResultDto> RemoveAsync(Book book);
 }

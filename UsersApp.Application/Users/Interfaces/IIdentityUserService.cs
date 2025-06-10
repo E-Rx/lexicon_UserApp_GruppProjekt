@@ -4,7 +4,7 @@ namespace UsersApp.Application.Users.Interfaces;
 
 public interface IIdentityUserService
 {
-    Task<UserResultDto> CreateUserAsync(UserProfileDto user, string password);
-    Task<UserResultDto> SignInAsync(string email, string password);
-    Task SignOutAsync();
+    Task<ResultDto> CreateUserAsync(UserProfileDto user, string displayName, string password);
+    Task<ResultDto> SignInAsync(string email, string password);
+    Task<ResultDto> SignOutAsync();
 }
