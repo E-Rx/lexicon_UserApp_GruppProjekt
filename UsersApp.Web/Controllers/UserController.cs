@@ -21,6 +21,12 @@ public class UserController(IUserService userService) : Controller
         return View();
     }
 
+    [HttpPost("/members")]
+    public async Task<IActionResult> Member(MemberVM memberVM)
+    {
+        return RedirectToAction(nameof(Member));
+    }
+
     //////////////////////////////////////////////////////
 
     [HttpGet("/login")]
@@ -39,11 +45,13 @@ public class UserController(IUserService userService) : Controller
     //////////////////////////////////////////////////////
 
     [HttpGet("/register")]
+    [AllowAnonymous]
     public IActionResult Register()
     {
         return View();
     }
     [HttpPost("/register")]
+    [AllowAnonymous]
     public async Task<IActionResult> Register(RegisterVM registerVM)
     {
         return RedirectToAction(nameof(Member));

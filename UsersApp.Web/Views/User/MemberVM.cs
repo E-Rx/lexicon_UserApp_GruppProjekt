@@ -1,6 +1,6 @@
 ﻿namespace UsersApp.Web.Views.User
 {
-    public class IndexVM
+    public class MemberVM
     {
     }
 }
