@@ -4,29 +4,32 @@ namespace UsersApp.Web.Views.User
 {
     public class RegisterVM
     {
-        [Required(ErrorMessage = "You must specify an UserName")]
-        [Display(Name = "User Name")]
+        [Required(ErrorMessage = "Var vänlig och ange ett användarnamn")]
+        [Display(Name = "Användarnamn")]
         public required string UserName { get; set; }
+       
+        [Display(Name = "Visningsnamn")]
+        public string? DisplayName { get; set; }
 
-        [Required(ErrorMessage = "You must specify an e-mail address")]
-        [EmailAddress(ErrorMessage = "Invalid e-mail address")]
+        [Required(ErrorMessage = "Var vänlig och ange en e-mail address")]
+        [EmailAddress(ErrorMessage = "Felaktig e-mailaddress")]
         [Display(Name = "E-mail")]
         public required string Email { get; set; }
-        [Required(ErrorMessage = "You must specify a FirstName")]
-        [Display(Name = "First Name")]
+        [Required(ErrorMessage = "Var vänlig och ange ett förnamn")]
+        [Display(Name = "Förnamn")]
         public required string FirstName { get; set; }
 
-        [Required(ErrorMessage = "You must specify a LastName")]
-        [Display(Name = "Last Name")]
+        [Required(ErrorMessage = "Var vänlig och ange ett efternamn")]
+        [Display(Name = "Efternamn")]
         public required string LastName { get; set; }
 
-        [Required(ErrorMessage = "You must specify a Password")]
+        [Required(ErrorMessage = "Var vänlig och ange ett lösenord.")]
         [DataType(DataType.Password)]      
         public required string Password { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Repeat password")]
+        [Display(Name = "Repetera lösenordet")]
         [Compare(nameof(Password))]
         public required string PasswordRepeat { get; set; }
 

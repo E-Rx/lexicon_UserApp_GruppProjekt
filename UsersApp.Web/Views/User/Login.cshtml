@@ -1,1 +1,15 @@
-﻿
+﻿@model LoginVM
+
+<form asp-controller="User" asp-action="Login"> 
+
+    <label asp-for="UserName"></label>
+    <input asp-for="UserName" />
+    <span asp-validation-for="UserName"></span>
+
+    <label asp-for="Password"></label>
+    <input asp-for="Password" />
+    <span asp-validation-for="Password"></span>
+
+    <input type="submit" value="Login"/>
+
+</form>

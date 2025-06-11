@@ -4,9 +4,10 @@ namespace UsersApp.Web.Views.User
 {
     public class LoginVM
     {
-        [Required(ErrorMessage = "You must enter an UserName")]
+        [Required(ErrorMessage = "Var vänlig och ange ett användarnamn")]
+        [Display(Name = "Användarnamn")]
         public required string UserName { get; set; }
-        [Required(ErrorMessage = "You must enter a Password")]
+        [Required(ErrorMessage = "Var vänlig och ange ett lösenord")]
         [DataType(DataType.Password)]
         public required string Password { get; set; }
     }
