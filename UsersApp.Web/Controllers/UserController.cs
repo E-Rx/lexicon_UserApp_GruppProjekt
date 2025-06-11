@@ -22,7 +22,7 @@ public class UserController(IUserService userService) : Controller
     }
 
     [HttpPost("/members")]
-    public async Task<IActionResult> Member(MemberVM memberVM)
+    public async Task<IActionResult> Member(MembersVM memberVM)
     {
         return RedirectToAction(nameof(Member));
     }
