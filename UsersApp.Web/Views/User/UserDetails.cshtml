@@ -1,0 +1,41 @@
+﻿@model RegisterVM
+
+@{
+    ViewBag.Title = "Ändra kontouppgifter";
+}
+
+<form asp-controller="User" asp-action="UserDetails">
+
+    <label asp-for="UserName"></label>
+    <input asp-for="UserName" value="@Model.UserName" />
+    <span asp-validation-for="UserName"></span>
+
+    <label asp-for="DisplayName"></label>
+    <input asp-for="DisplayName" value="@Model.DisplayName"/>
+    <span asp-validation-for="DisplayName"></span>
+
+    <label asp-for="FirstName"></label>
+    <input asp-for="FirstName" value="@Model.FirstName" />
+    <span asp-validation-for="FirstName"></span>
+
+    <label asp-for="LastName"></label>
+    <input asp-for="LastName" value="@Model.LastName" />
+    <span asp-validation-for="LastName"></span>
+
+    <label asp-for="Email"></label>
+    <input asp-for="Email" value="@Model.Email" />
+    <span asp-validation-for="Email"></span>
+
+    <label asp-for="Password"></label>
+    <input asp-for="Password" />
+    <span asp-validation-for="Password"></span>
+
+    <label asp-for="PasswordRepeat"></label>
+    <input asp-for="PasswordRepeat" />
+    <span asp-validation-for="PasswordRepeat"></span>
+
+    <br />
+    <input type="submit" value="UserDetails" />
+    <div asp-validation-summary="All"></div>
+</form>
+

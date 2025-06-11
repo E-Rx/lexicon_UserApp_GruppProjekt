@@ -7,4 +7,9 @@ public interface IUserService
     Task<ResultDto> CreateUserAsync(UserDto user, string displayName, string password);
     Task<ResultDto> SignInAsync(string email, string password);
     Task SignOutAsync();
+    Task<UserDto> GetUserDtoById(string id);
+    Task<UserDto[]> GetAll();
+    Task EditAsync(string id, UserDto userProfileDto);
+    Task RemoveAsync(string id);
+    Task UpdateLastLogin(string id);
 }
