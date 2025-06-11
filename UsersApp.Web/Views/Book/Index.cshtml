@@ -1,0 +1,11 @@
+﻿@model BookVM[]
+@{
+    ViewBag.Title = "Boklista";
+}
+
+<ul>
+    @foreach(var book in Model)
+    {
+        <li>@book.Title</li>
+    }
+</ul>

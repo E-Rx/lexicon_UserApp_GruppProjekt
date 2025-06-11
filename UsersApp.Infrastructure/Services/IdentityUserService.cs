@@ -11,8 +11,8 @@ namespace UsersApp.Infrastructure.Services;
 public class IdentityUserService
 (    
     UserManager<ApplicationUser> userManager,   
-    SignInManager<ApplicationUser> loginManager,
-    RoleManager<ApplicationUser> roleManager
+    SignInManager<ApplicationUser> loginManager  /*, 
+    RoleManager<ApplicationUser> roleManager  */  // NOTE:  Temporarily removed
 ) : IIdentityUserService
 
 {

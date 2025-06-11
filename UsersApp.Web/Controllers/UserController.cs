@@ -10,7 +10,7 @@ using UsersApp.Web.Views.User;
 namespace UsersApp.Web.Controllers;
 
 [Authorize]
-public class UserController(IUserService userService) : Controller
+public class UserController(/*IUserService userService*/) : Controller   // NOTE: Temporarily removed
 {
     [HttpGet("")]
     [AllowAnonymous]
@@ -24,27 +24,27 @@ public class UserController(IUserService userService) : Controller
     [HttpGet("/users")]   
     public async Task<IActionResult> Users()
     {
-        UsersVM usersVM;
-        try
-        {
-            string? user = User.FindFirstValue("UserId");
-            if (user != null)
-            {
-                UserDto model = await userService.GetUserDtoById(user);
-                usersVM.UserName = model.UserName
-            }
+        //UsersVM usersVM;
+        //try
+        //{
+        //    string? user = User.FindFirstValue("UserId");
+        //    if (user != null)
+        //    {
+        //        UserDto model = await userService.GetUserDtoById(user);
+        //        usersVM.UserName = model.UserName
+        //    }
 
-            else
-            {
-                throw new ArgumentException("", "");
-            }
-        }
+        //    else
+        //    {
+        //        throw new ArgumentException("", "");
+        //    }
+        //}
 
-        catch
-        {
+        //catch
+        //{
 
 
-        }
+        //}
 
         return View();
     }
@@ -57,7 +57,7 @@ public class UserController(IUserService userService) : Controller
 
         try
         {
-            var model = userService.Get
+            //var model = userService.Get
 
         }
 

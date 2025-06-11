@@ -1,4 +1,6 @@
-﻿namespace UsersApp.Web.Views.User
+﻿using UsersApp.Web.Views.Book;
+
+namespace UsersApp.Web.Views.User
 {
     public class UsersVM
     {
