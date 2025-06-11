@@ -1,4 +1,4 @@
-﻿@model UsersVM
+﻿@model BookVM[]
 
 @{
     ViewBag.Title = "Min sida";
@@ -6,3 +6,16 @@
 
 <h2>Välkommen @User.FindFirst("DisplayName")</h2>
 
+@if (Model.Length == 0)
+{
+    <p>Inga lånade böcker</p>
+}
+else
+{
+    <ul>
+    @foreach(var book in Model)
+    {
+        <li>@book.Title</li>
+    }
+    </ul>
+}
