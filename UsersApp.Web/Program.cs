@@ -7,6 +7,8 @@ using UsersApp.Infrastructure.Persistence.Repositories;
 using UsersApp.Application.Interfaces.Books;
 using UsersApp.Application.Interfaces.Loans;
 using UsersApp.Application.Interfaces.Users;
+using UsersApp.Application.Services.Users;
+using UsersApp.Application.Interfaces;
 
 
 namespace UsersApp.Web;
@@ -26,6 +28,8 @@ public class Program
             .AddEntityFrameworkStores<ApplicationContext>()
             .AddDefaultTokenProviders();
         // Register the identity user service
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+        builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IIdentityUserService, IdentityUserService>();
         // Add controllers with views
         builder.Services.AddControllersWithViews();
