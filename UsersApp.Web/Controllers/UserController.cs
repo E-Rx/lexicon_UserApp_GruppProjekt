@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Claims;
@@ -25,26 +26,36 @@ public class UserController(IUserService userService) : Controller
     [HttpGet("/users")]   
     public async Task<IActionResult> Users()
     {
-        UsersVM usersVM;
+        
         try
         {
             string? user = User.FindFirstValue("UserId");
             if (user != null)
             {
-                UserDto model = await userService.GetUserDtoById(user);
-                // usersVM.UserName = model.UserName
+                UserDto userDto = await userService.GetUserDtoById(user);
+                
+                UsersVM usersVM = new()
+                {
+                    UserName = userDto.UserName,
+                    DisplayName = userDto.DisplayName
+                };
+
+                return View(usersVM);
             }
 
             else
             {
-                throw new ArgumentException("", "");
+                throw new ArgumentNullException
+                    (
+                        nameof(user),
+                        nameof(user) + " returnerade null"
+                    );
             }
         }
 
-        catch
+        catch (Exception err)
         {
-
-
+            Console.WriteLine("Error: " + err);
         }
 
         return View();

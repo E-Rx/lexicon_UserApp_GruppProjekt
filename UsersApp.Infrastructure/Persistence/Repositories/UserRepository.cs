@@ -30,7 +30,8 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
 
             UserDto userDto = new
                 (
-                    user.Email!,
+                    user.UserName!,
+                    user.Email!,                   
                     user.FirstName!,
                     user.LastName!,
                     user.LibraryUser.DisplayName!
@@ -48,7 +49,7 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
         public async Task<UserDto[]> GetAll()
         {
             ApplicationUser[] users = await context.Users.ToArrayAsync();
-            UserDto[] userDtos = [.. users.Select(u => new UserDto(u.Email!, u.FirstName!, u.LastName!, u.LibraryUser.DisplayName!))];
+            UserDto[] userDtos = [.. users.Select(u => new UserDto(u.UserName!, u.Email!, u.FirstName!, u.LastName!, u.LibraryUser.DisplayName!))];
 
             return userDtos;
         }
