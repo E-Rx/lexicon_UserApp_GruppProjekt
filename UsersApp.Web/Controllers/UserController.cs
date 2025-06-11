@@ -5,12 +5,13 @@ using System.Security.Claims;
 using UsersApp.Application.Dtos;
 using UsersApp.Application.Interfaces;
 using UsersApp.Application.Interfaces.Users;
+using UsersApp.Application.Services.Users;
 using UsersApp.Web.Views.User;
 
 namespace UsersApp.Web.Controllers;
 
 [Authorize]
-public class UserController(/*IUserService userService*/) : Controller   // NOTE: Temporarily removed
+public class UserController(IUserService userService) : Controller   
 {
     [HttpGet("")]
     [AllowAnonymous]
@@ -24,27 +25,27 @@ public class UserController(/*IUserService userService*/) : Controller   // NOTE
     [HttpGet("/users")]   
     public async Task<IActionResult> Users()
     {
-        //UsersVM usersVM;
-        //try
-        //{
-        //    string? user = User.FindFirstValue("UserId");
-        //    if (user != null)
-        //    {
-        //        UserDto model = await userService.GetUserDtoById(user);
-        //        usersVM.UserName = model.UserName
-        //    }
+        UsersVM usersVM;
+        try
+        {
+            string? user = User.FindFirstValue("UserId");
+            if (user != null)
+            {
+                UserDto model = await userService.GetUserDtoById(user);
+                // usersVM.UserName = model.UserName
+            }
 
-        //    else
-        //    {
-        //        throw new ArgumentException("", "");
-        //    }
-        //}
+            else
+            {
+                throw new ArgumentException("", "");
+            }
+        }
 
-        //catch
-        //{
+        catch
+        {
 
 
-        //}
+        }
 
         return View();
     }
@@ -144,14 +145,29 @@ public class UserController(/*IUserService userService*/) : Controller   // NOTE
             return View();
         try
         {
+            if (registerVM == null)
+                throw new ArgumentNullException
+                    (
+                        nameof(registerVM),
+                        nameof(registerVM) + " är null"                       
+                    );
 
+            UserDto userDto = new UserDto
+            (
+                registerVM.UserName,
+                registerVM.Email,
+                registerVM.FirstName,
+                registerVM.LastName,
+                registerVM.DisplayName!
+            );
 
+            await userService.CreateUserAsync(userDto, registerVM.Password);
+                       
         }
 
-        catch
+        catch (Exception err)
         {
-
-
+            Console.WriteLine("Error: " + err);
         }
 
         return RedirectToAction(nameof(Users));

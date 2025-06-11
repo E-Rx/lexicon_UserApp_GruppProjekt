@@ -11,7 +11,7 @@ namespace UsersApp.Application.Services.Users;
 
 public class UserService(IIdentityUserService identityUserService, IUnitOfWork unitOfWork) : IUserService
 {
-    public async Task<ResultDto> CreateUserAsync(UserDto user, string displayName, string password) 
+    public async Task<ResultDto> CreateUserAsync(UserDto user, string password) 
         => await identityUserService.CreateUserAsync(user, password);
     public async Task<ResultDto> SignInAsync(string email, string password) 
         => await identityUserService.SignInAsync(email, password);

@@ -11,9 +11,8 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
         private async Task<ApplicationUser> GetUserById(string id)
         {
             ApplicationUser? user = await context.Users
-                .Include<>(o => o.Id)
-               .Include(o => o.LibraryUserId)
-               .SingleOrDefaultAsync(u => u.Id == id);
+                .Include(o => o.LibraryUser)               
+                .SingleOrDefaultAsync(u => u.Id == id);
 
             if (user == null)          
                 throw new ArgumentException
@@ -34,7 +33,7 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
                     user.Email!,
                     user.FirstName!,
                     user.LastName!,
-                    user.Profile.DisplayName!
+                    user.LibraryUser.DisplayName!
                 );
 
             if (userDto.Email == null)
@@ -49,7 +48,7 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
         public async Task<UserDto[]> GetAll()
         {
             ApplicationUser[] users = await context.Users.ToArrayAsync();
-            UserDto[] userDtos = [.. users.Select(u => new UserDto(u.Email!, u.FirstName!, u.LastName!, u.Profile.DisplayName!))];
+            UserDto[] userDtos = [.. users.Select(u => new UserDto(u.Email!, u.FirstName!, u.LastName!, u.LibraryUser.DisplayName!))];
 
             return userDtos;
         }
@@ -61,7 +60,7 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
             user.Email = userProfileDto.Email;
             user.FirstName = userProfileDto.FirstName;
             user.LastName = userProfileDto.LastName;
-            user.Profile.DisplayName = userProfileDto.DisplayName; 
+            user.LibraryUser.DisplayName = userProfileDto.DisplayName; 
             
             context.Users.Update(user);              
         }

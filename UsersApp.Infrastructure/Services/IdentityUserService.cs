@@ -19,7 +19,8 @@ public class IdentityUserService
 
     
     public async Task<ResultDto> CreateUserAsync(UserDto user, string password)
-    {    
+    {
+        LibraryUser libraryUser = new() { DisplayName = user.DisplayName };
         var newUser = new ApplicationUser
         {
             FirstName = user.FirstName,
@@ -27,7 +28,8 @@ public class IdentityUserService
             Email = user.Email,
             DateOfCreation = DateTime.Now,
             LastLogin = DateTime.Now,
-            Profile = new() { DisplayName = user.DisplayName }
+            LibraryUserId = libraryUser.Id,
+            LibraryUser = libraryUser
         };
 
         var result = await userManager.CreateAsync(newUser, password);
@@ -40,8 +42,6 @@ public class IdentityUserService
                     new Claim("DisplayName", user.DisplayName)
                 ]
             );
-
-
 
         return new ResultDto(result.Errors.FirstOrDefault()?.Description);                                       
     }

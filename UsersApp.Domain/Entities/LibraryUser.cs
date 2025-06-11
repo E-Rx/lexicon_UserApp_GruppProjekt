@@ -11,7 +11,6 @@ namespace UsersApp.Domain.Entities
     {
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
-        public string? DisplayName { get; set; }
-
+        public string? DisplayName { get; set; }     
     }
 }

@@ -17,27 +17,27 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options)
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<ApplicationUser>().ToTable("Users");
-        builder.Entity<LibraryUser>().ToTable("Users");
+//        builder.Entity<ApplicationUser>().ToTable("Users");
+//        builder.Entity<LibraryUser>().ToTable("Users");
 
-        builder.Entity<ApplicationUser>()
-            .HasKey(u => u.Id);
-        //builder.Entity<ApplicationUser>()
-        //    .HasOne(u => u.Profile)
-        //    .WithOne();
-//            .HasForeignKey<LibraryUser>(d => d.Id);
+//        builder.Entity<ApplicationUser>()
+//            .HasKey(u => u.Id);
+//        //builder.Entity<ApplicationUser>()
+//        //    .HasOne(u => u.Profile)
+//        //    .WithOne();
+////            .HasForeignKey<LibraryUser>(d => d.Id);
 
-        builder.Entity<ApplicationUser>().Property(u => u.PasswordHash); // security
-        builder.Entity<LibraryUser>().Property(d => d.DisplayName);             // business
+//        builder.Entity<ApplicationUser>().Property(u => u.PasswordHash); // security
+//        builder.Entity<LibraryUser>().Property(d => d.DisplayName);             // business
 
-        builder.Entity<Book>().ToTable("Books")
-            .HasKey(b => b.ISBN);
+//        builder.Entity<Book>().ToTable("Books")
+//            .HasKey(b => b.ISBN);
 
-        builder.Entity<Loan>().ToTable("Loans")
-            .HasKey(l => l.Id);
-        //builder.Entity<Loan>()
-        //    .
-        //    .HasFo
+//        builder.Entity<Loan>().ToTable("Loans")
+//            .HasKey(l => l.Id);
+//        //builder.Entity<Loan>()
+//        //    .
+//        //    .HasFo
     }
 
 }

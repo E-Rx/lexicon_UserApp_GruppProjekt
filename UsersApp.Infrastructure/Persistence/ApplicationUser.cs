@@ -17,6 +17,8 @@ public class ApplicationUser : IdentityUser
     public string? LastName { get; set; }
     public DateTime DateOfCreation { get; set; } 
     public DateTime LastLogin { get; set; }
-    [ForeignKey(nameof(LibraryUser))]
-    public required Guid LibraryUserId { get; set; }
+    [Required]
+    public Guid LibraryUserId { get; set; }
+    [ForeignKey(nameof(LibraryUserId))]
+    public virtual LibraryUser LibraryUser { get; set; }
 }
