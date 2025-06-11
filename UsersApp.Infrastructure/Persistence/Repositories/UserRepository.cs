@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UsersApp.Application.Dtos;
 using UsersApp.Application.Interfaces.Users;
+using UsersApp.Domain.Entities;
 
 namespace UsersApp.Infrastructure.Persistence.Repositories
 {
@@ -10,7 +11,8 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
         private async Task<ApplicationUser> GetUserById(string id)
         {
             ApplicationUser? user = await context.Users
-               .Include(c => c.Profile)
+                .Include<>(o => o.Id)
+               .Include(o => o.LibraryUserId)
                .SingleOrDefaultAsync(u => u.Id == id);
 
             if (user == null)          

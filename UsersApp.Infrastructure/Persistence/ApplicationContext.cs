@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UsersApp.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace UsersApp.Infrastructure.Persistence;
@@ -20,16 +15,29 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options)
     public DbSet<Loan>? Loans { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        base.OnModelCreating(builder);
+
         builder.Entity<ApplicationUser>().ToTable("Users");
         builder.Entity<LibraryUser>().ToTable("Users");
 
         builder.Entity<ApplicationUser>()
-            .HasOne(u => u.Profile)
-            .WithOne()
-            .HasForeignKey<LibraryUser>(d => d.Id);
+            .HasKey(u => u.Id);
+        //builder.Entity<ApplicationUser>()
+        //    .HasOne(u => u.Profile)
+        //    .WithOne();
+//            .HasForeignKey<LibraryUser>(d => d.Id);
 
         builder.Entity<ApplicationUser>().Property(u => u.PasswordHash); // security
         builder.Entity<LibraryUser>().Property(d => d.DisplayName);             // business
+
+        builder.Entity<Book>().ToTable("Books")
+            .HasKey(b => b.ISBN);
+
+        builder.Entity<Loan>().ToTable("Loans")
+            .HasKey(l => l.Id);
+        //builder.Entity<Loan>()
+        //    .
+        //    .HasFo
     }
 
 }
