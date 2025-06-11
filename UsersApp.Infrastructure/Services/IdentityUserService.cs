@@ -16,13 +16,12 @@ public class IdentityUserService
 ) : IIdentityUserService
 
 {
-
-    
     public async Task<ResultDto> CreateUserAsync(UserDto user, string password)
     {
         LibraryUser libraryUser = new() { DisplayName = user.DisplayName };
         var newUser = new ApplicationUser
         {
+            UserName = user.UserName,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Email = user.Email,
@@ -46,9 +45,9 @@ public class IdentityUserService
         return new ResultDto(result.Errors.FirstOrDefault()?.Description);                                       
     }
 
-    public async Task<ResultDto> SignInAsync(string email, string password)
+    public async Task<ResultDto> SignInAsync(string userName, string password)
     {
-        var result = await loginManager.PasswordSignInAsync(email, password, false, false);
+        var result = await loginManager.PasswordSignInAsync(userName, password, false, false);
         return new ResultDto(result.Succeeded ? null : "Invalid user Credentials");
     }
 

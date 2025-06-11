@@ -14,8 +14,8 @@ namespace UsersApp.Web.Controllers;
 [Authorize]
 public class UserController(IUserService userService) : Controller   
 {
-    [HttpGet("")]
     [AllowAnonymous]
+    [HttpGet("")]
     public async Task<IActionResult> Index()
     {       
         return RedirectToAction(nameof(Login));
@@ -61,7 +61,8 @@ public class UserController(IUserService userService) : Controller
         return View();
     }
 
-    [HttpPost("/users")]
+    /*
+    [HttpPost("/users/{Id}")]
     public async Task<IActionResult> Users(UsersVM usersVM)
     {
         if (!ModelState.IsValid)
@@ -80,16 +81,16 @@ public class UserController(IUserService userService) : Controller
         }
         return RedirectToAction(nameof(Users));
     }
-
+    */
     //////////////////////////////////////////////////////
 
-    [HttpGet("/users/details")]
+    [HttpGet("users/{Id}/details")]
     public async Task<IActionResult> UserDetails()
     {
         return View();
     }
 
-    [HttpPost("/users/details")]
+    [HttpPost("users/{Id}/details")]
     public async Task<IActionResult> UserDetails(UserDetailsVM userDetails)
     {
         if (!ModelState.IsValid)
@@ -112,14 +113,16 @@ public class UserController(IUserService userService) : Controller
 
     //////////////////////////////////////////////////////
 
-    [HttpGet("/login")]
+
     [AllowAnonymous]
+    [HttpGet("login")]
     public IActionResult Login()
     {
         return View();
     }
-    [HttpPost("/login")]
+
     [AllowAnonymous]
+    [HttpPost("login")]
     public async Task<IActionResult> Login(LoginVM loginVM)
     {
         if (!ModelState.IsValid)
@@ -141,15 +144,17 @@ public class UserController(IUserService userService) : Controller
     }
 
     //////////////////////////////////////////////////////
-
-    [HttpGet("/register")]
+    ///
     [AllowAnonymous]
+    [HttpGet("register")]
     public IActionResult Register()
     {
         return View();
     }
-    [HttpPost("/register")]
+
+
     [AllowAnonymous]
+    [HttpPost("register")] 
     public async Task<IActionResult> Register(RegisterVM registerVM)
     {
         if (!ModelState.IsValid)
@@ -172,8 +177,17 @@ public class UserController(IUserService userService) : Controller
                 registerVM.DisplayName!
             );
 
-            await userService.CreateUserAsync(userDto, registerVM.Password);
-                       
+            var result = await userService.CreateUserAsync(userDto, registerVM.Password);
+
+            if (result.Succeeded) 
+                result = await userService.SignInAsync(userDto.UserName, registerVM.Password);
+
+            else
+            {
+                return RedirectToAction(nameof(Login));
+            }
+
+
         }
 
         catch (Exception err)

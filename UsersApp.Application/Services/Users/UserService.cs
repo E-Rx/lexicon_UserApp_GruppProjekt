@@ -13,8 +13,8 @@ public class UserService(IIdentityUserService identityUserService, IUnitOfWork u
 {
     public async Task<ResultDto> CreateUserAsync(UserDto user, string password) 
         => await identityUserService.CreateUserAsync(user, password);
-    public async Task<ResultDto> SignInAsync(string email, string password) 
-        => await identityUserService.SignInAsync(email, password);
+    public async Task<ResultDto> SignInAsync(string userName, string password) 
+        => await identityUserService.SignInAsync(userName, password);
     public async Task SignOutAsync()
         => await identityUserService.SignOutAsync();
 

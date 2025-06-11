@@ -24,6 +24,7 @@ public class Program
         // Configure Entity Framework and Identity
         builder.Services.AddDbContext<ApplicationContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationContext>()
             .AddDefaultTokenProviders();
@@ -33,6 +34,8 @@ public class Program
         builder.Services.AddScoped<IIdentityUserService, IdentityUserService>();
         // Add controllers with views
         builder.Services.AddControllersWithViews();
+
+        builder.Services.ConfigureApplicationCookie(o => o.LoginPath = "/login");
 
 
 
