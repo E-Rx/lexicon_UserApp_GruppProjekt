@@ -6,7 +6,7 @@
 }
 
 
-<form asp-controller="Book" asp-action="EditBook">
+<form asp-controller="Book" asp-action="Edit" asp-route-isbn="@Model.ISBN">
 
     <label asp-for="ISBN"></label>
     <input value="@Model.ISBN"asp-for="ISBN" />

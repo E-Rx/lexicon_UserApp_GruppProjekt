@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using UsersApp.Application.Dtos;
 using UsersApp.Application.Interfaces.Books;
+using UsersApp.Application.Services.Users;
 using UsersApp.Domain.Enums.Entities;
 using UsersApp.Web.Views.Book;
 using UsersApp.Web.Views.User;
@@ -88,10 +90,48 @@ public class BookController(IBookService bookService) : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    [HttpGet("edit")]
-    public IActionResult EditBook() => View();
+    [HttpGet("details/edit")]
+    public async Task<IActionResult> EditBook(string isbn)
+    {
+        try
+        {
+            BookDto? bookDto = await bookService.GetById(isbn);
+            if (bookDto != null)
+            {               
+                EditBookVM editBookVM = new ()
+                {
+                    ISBN = bookDto.isbn,
+                    Title = bookDto.title,
+                    Author = bookDto.author,
+                    Status = bookDto.status,
+                    Condition = bookDto.condition,
+                    Genre = bookDto.genre
+                };
 
-    [HttpPost("edit")]
+                return View(editBookVM);
+
+            }
+
+            else
+            {
+                throw new ArgumentNullException
+                (
+                    nameof(bookDto),
+                    nameof(bookDto) + " returnerade null"
+                );
+            }
+        }
+
+        catch (Exception err)
+        {
+            Console.WriteLine("Error: " + err);
+        }
+
+
+        return View();
+    }
+
+    [HttpPost("details/edit")]
     public async Task<IActionResult> EditBook(EditBookVM editBookVM)
     {
         if (!ModelState.IsValid)
