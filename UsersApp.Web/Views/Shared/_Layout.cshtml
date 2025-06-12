@@ -15,6 +15,7 @@
             <a asp-controller="User" asp-action="Register">Register</a>
             @if (User.Identity.IsAuthenticated)
             {
+                <a asp-controller="User" asp-action="UserDetails">My info</a>
                 <a asp-controller="User" asp-action="LogOut">Logout</a>
             }
             else
