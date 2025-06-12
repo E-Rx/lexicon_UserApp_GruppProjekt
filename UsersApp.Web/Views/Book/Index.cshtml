@@ -6,6 +6,17 @@
 <ul>
     @foreach(var book in Model)
     {
-        <li>@book.Title</li>
+        <li>
+            <a asp-controller="Book" asp-action="Details" asp-route-id="@book.Isbn">
+                <div class="d-flex container-fluid">
+                    <div class="col-2">
+                        @book.Title
+                    </div>
+                    <div class="col-2 right-aligned">
+                        @book.Author
+                    </div>
+                </div>
+            </a>
+        </li>
     }
 </ul>

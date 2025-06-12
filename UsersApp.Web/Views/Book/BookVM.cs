@@ -2,6 +2,7 @@
 
 public class BookVM
 {
-    public string Title = null!;
-    public string Author = null!;       
-}
+    public required string Isbn;
+    public required string Title;
+    public required string Author;
+};

@@ -11,7 +11,7 @@ namespace UsersApp.Domain.Entities
     public class Book
     {
         [Key]
-        public string? ISBN { get; set; } 
+        public string ISBN { get; set; } = null!;
         public string Title { get; set; } = null!;
         public string Author { get; set; } = null!;        
         public BookStatus Status { get; set; }

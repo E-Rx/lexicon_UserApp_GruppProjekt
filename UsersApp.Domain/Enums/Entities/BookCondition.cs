@@ -11,7 +11,7 @@ public enum BookCondition
 
 public static class BookConditionExtensions
 {
-    public static string GetSwedishName(BookCondition condition)
+    public static string GetSwedishName(BookCondition? condition)
     {
         return condition switch
         {
