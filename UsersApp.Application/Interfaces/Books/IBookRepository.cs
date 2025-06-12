@@ -5,8 +5,8 @@ namespace UsersApp.Application.Interfaces.Books;
 
 public interface IBookRepository
 {
-    Task AddAsync(Book book);
-    Book[] GetAll();
-    Book? GetById(string isbn);
-    Task RemoveAsync(Book book); 
+    Task AddAsync(BookDto book);
+    BookDto[] GetAll();
+    BookDto? GetById(string isbn);
+    Task RemoveAsync(BookDto book); 
 }

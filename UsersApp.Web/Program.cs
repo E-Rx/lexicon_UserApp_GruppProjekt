@@ -9,6 +9,8 @@ using UsersApp.Application.Interfaces.Loans;
 using UsersApp.Application.Interfaces.Users;
 using UsersApp.Application.Services.Users;
 using UsersApp.Application.Interfaces;
+using UsersApp.Application.Services.Books;
+using UsersApp.Application.Services.Loans;
 
 
 namespace UsersApp.Web;
@@ -32,6 +34,8 @@ public class Program
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IIdentityUserService, IdentityUserService>();
+        builder.Services.AddScoped<IBookService, BookService>();
+        builder.Services.AddScoped<ILoanService, LoanService>();
         // Add controllers with views
         builder.Services.AddControllersWithViews();
 

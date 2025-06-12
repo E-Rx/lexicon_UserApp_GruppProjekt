@@ -7,15 +7,15 @@ namespace UsersApp.Application.Services.Books;
 
 public class BookService(IUnitOfWork unitOfWork) : IBookService
 {
-    public async Task AddAsync(Book book)
+    public async Task AddAsync(BookDto book)
     {
         await unitOfWork.BookRepository.AddAsync(book);
         await unitOfWork.Save();
     }
     
-    public Book[] GetAll() => unitOfWork.BookRepository.GetAll();
-    public Book? GetById(string isbn) => unitOfWork.BookRepository.GetById(isbn);
-    public async Task RemoveAsync(Book book)
+    public BookDto[] GetAll() => unitOfWork.BookRepository.GetAll();
+    public BookDto? GetById(string isbn) => unitOfWork.BookRepository.GetById(isbn);
+    public async Task RemoveAsync(BookDto book)
     {
         await unitOfWork.BookRepository.RemoveAsync(book);
         await unitOfWork.Save();
