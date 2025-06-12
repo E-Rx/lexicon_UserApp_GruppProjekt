@@ -147,17 +147,7 @@ public class UserController(IUserService userService) : Controller
                         userDetails.LastName
                     );
 
-                UserDetailsVM userDetailsVM = new()
-                {
-                    UserName = userDto.UserName,
-                    DisplayName = userDto.DisplayName,
-                    Email = userDto.Email,
-                    FirstName = userDto.FirstName,
-                    LastName = userDto.LastName
-                };
-
-                return View(userDetailsVM);
-
+                await userService.EditAsync(user, userDto);            
             }
         }
 
