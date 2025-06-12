@@ -13,11 +13,12 @@ using UsersApp.Application.Services.Books;
 using UsersApp.Application.Services.Loans;
 
 
+
 namespace UsersApp.Web;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -26,10 +27,11 @@ public class Program
         // Configure Entity Framework and Identity
         builder.Services.AddDbContext<ApplicationContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationContext>()
             .AddDefaultTokenProviders();
+        
+        
         // Register the identity user service
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         builder.Services.AddScoped<IUserService, UserService>();
@@ -46,7 +48,12 @@ public class Program
 
         var app = builder.Build();
 
-        app.UseRouting();
+        using (var scope = app.Services.CreateScope())
+        {
+            
+        }
+
+            app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
 
