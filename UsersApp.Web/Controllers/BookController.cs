@@ -31,9 +31,9 @@ public class BookController(IBookService bookService) : Controller
     }
 
     [HttpGet("details")]
-    public IActionResult Details(string Isbn)
+    public async Task<IActionResult> Details(string Isbn)
     {
-        BookDto? book = bookService.GetById(Isbn);
+        BookDto? book = await bookService.GetById(Isbn);
         if (book is null)
             return NotFound($"Boken med ISBN {Isbn} hittades inte.");
 
@@ -108,13 +108,12 @@ public class BookController(IBookService bookService) : Controller
 
             BookDto bookDto = new
                 (
-                    editBookVM.Isbn,
+                    editBookVM.ISBN,
                     editBookVM.Title,
                     editBookVM.Author,
                     editBookVM.Status,
                     editBookVM.Condition,
                     editBookVM.Genre
-
                 );          
 
             await bookService.EditAsync(bookDto);

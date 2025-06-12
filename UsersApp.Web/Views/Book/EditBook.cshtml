@@ -1,0 +1,72 @@
+﻿@using UsersApp.Domain.Enums.Entities
+@model EditBookVM
+
+@{
+    ViewBag.Title = "Redigera bok";
+}
+
+
+<form asp-controller="Book" asp-action="EditBook">
+
+    <label asp-for="ISBN"></label>
+    <input value="@Model.ISBN"asp-for="ISBN" />
+    <span asp-validation-for="ISBN"></span>
+
+    <label asp-for="Title"></label>
+    <input value="@Model.Title"asp-for="Title" />
+    <span asp-validation-for="Title"></span>
+
+    <label asp-for="Author"></label>
+    <input value="@Model.Author"asp-for="Author" />
+    <span asp-validation-for="Author"></span>
+
+    <label asp-for="Status"></label>
+    <select asp-for="Status">
+        @foreach (BookStatus status in Enum.GetValues(typeof(BookStatus)))
+        {
+            <option value="@status" selected>@BookStatusExtensions.GetSwedishName(status)</option>
+           
+        }
+
+    </select>
+
+    <label asp-for="Condition"></label>
+    <select value="@Model.Status" asp-for=" Condition">
+        @foreach (BookCondition condition in Enum.GetValues(typeof(BookCondition)))
+        {
+            <option value="@condition" selected>@BookConditionExtensions.GetSwedishName(condition)</option>
+        }
+
+    </select>
+
+    <label asp-for="Genre"></label>
+    <select asp-for="Genre">
+        @foreach (BookGenre genre in Enum.GetValues(typeof(BookGenre)))
+        {
+            <option value="@genre" selected>@BookGenreExtensions.GetSwedishName(genre)</option>
+        }
+
+    </select>
+
+    <br />
+    <input type="submit" value="EditBook" />
+    <div asp-validation-summary="All"></div>
+</form>
+
+@section scripts
+{
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.min.js"
+            asp-fallback-src="~/scripts/jquery/jquery.min.js"
+            asp-fallback-test="window.jQuery">
+    </script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/jquery.validate.min.js"
+            asp-fallback-src="~/scripts/jquery-validate/jquery.validate.min.js"
+            asp-fallback-test="$.validator">
+    </script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"
+            asp-fallback-src="~/scripts/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+            asp-fallback-test="$.validator.unobtrusive">
+    </script>
+}
