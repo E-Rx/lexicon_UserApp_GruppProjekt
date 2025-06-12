@@ -12,21 +12,21 @@ using UsersApp.Web.Views.User;
 namespace UsersApp.Web.Controllers;
 
 [Authorize]
-public class UserController(IUserService userService) : Controller   
+public class UserController(IUserService userService) : Controller
 {
     [AllowAnonymous]
     [HttpGet("")]
     public async Task<IActionResult> Index()
-    {       
+    {
         return RedirectToAction(nameof(Login));
     }
 
     //////////////////////////////////////////////////////
 
-    [HttpGet("/users")]   
+    [HttpGet("/users")]
     public async Task<IActionResult> Users()
     {
-        
+
         try
         {
             string? user = User.FindFirstValue("UserId");
@@ -47,10 +47,10 @@ public class UserController(IUserService userService) : Controller
             else
             {
                 throw new ArgumentNullException
-                    (
-                        nameof(user),
-                        nameof(user) + " returnerade null"
-                    );
+                (
+                    nameof(user),
+                    nameof(user) + " returnerade null"
+                );
             }
         }
 
@@ -61,37 +61,73 @@ public class UserController(IUserService userService) : Controller
 
         return View();
     }
+    
 
-    /*
-    [HttpPost("/users/{Id}")]
-    public async Task<IActionResult> Users(UsersVM usersVM)
-    {
-        if (!ModelState.IsValid)
-            return View();
+    //[HttpPost("/users/{Id}")]
+    //public async Task<IActionResult> Users(UsersVM usersVM)
+    //{
+    //    if (!ModelState.IsValid)
+    //        return View();
 
-        try
-        {
-            //var model = userService.Get
+    //    try
+    //    {
+    //        //var model = userService.Get
 
-        }
+    //    }
 
-        catch
-        {
+    //    catch
+    //    {
 
 
-        }
-        return RedirectToAction(nameof(Users));
-    }
-    */
+    //    }
+    //    return RedirectToAction(nameof(Users));
+    //}
+
     //////////////////////////////////////////////////////
 
-    /*[HttpGet("users/{Id}/details")]
+    [HttpGet("users/details")]
     public async Task<IActionResult> UserDetails()
     {
+        try
+        {
+            string? user = User.FindFirstValue("UserId");
+            if (user != null)
+            {
+                UserDto userDto = await userService.GetUserDtoById(user);
+
+                UserDetailsVM userDetailsVM = new()
+                {
+                    UserName = userDto.UserName,
+                    DisplayName = userDto.DisplayName,
+                    Email = userDto.Email,
+                    FirstName = userDto.FirstName,
+                    LastName = userDto.LastName
+                };
+
+                return View(userDetailsVM);
+
+            }
+
+            else
+            {
+                throw new ArgumentNullException
+                (
+                    nameof(user),
+                    nameof(user) + " returnerade null"
+                );
+            }
+        }
+
+        catch (Exception err)
+        {
+            Console.WriteLine("Error: " + err);
+        }
+
+
         return View();
     }
 
-    [HttpPost("users/{Id}/details")]
+    [HttpPost("users/details")]
     public async Task<IActionResult> UserDetails(UserDetailsVM userDetails)
     {
         if (!ModelState.IsValid)
@@ -99,18 +135,39 @@ public class UserController(IUserService userService) : Controller
 
         try
         {
+            string? user = User.FindFirstValue("UserId");
+            if (user != null)
+            {
+                UserDto userDto = new UserDto
+                    (
+                        userDetails.UserName,
+                        userDetails.DisplayName!,
+                        userDetails.Email,
+                        userDetails.FirstName,
+                        userDetails.LastName
+                    );
 
+                UserDetailsVM userDetailsVM = new()
+                {
+                    UserName = userDto.UserName,
+                    DisplayName = userDto.DisplayName,
+                    Email = userDto.Email,
+                    FirstName = userDto.FirstName,
+                    LastName = userDto.LastName
+                };
 
+                return View(userDetailsVM);
+
+            }
         }
 
-        catch
+        catch (Exception err)
         {
-
-
+            Console.WriteLine("Error: " + err);
         }
 
         return RedirectToAction(nameof(Users));
-    }*/
+    }
 
     //////////////////////////////////////////////////////
 
@@ -132,22 +189,19 @@ public class UserController(IUserService userService) : Controller
         try
         {
             var result = await userService.SignInAsync(loginVM.UserName, loginVM.Password);
-            if (result.Succeeded)
-            {
-                await userService.UpdateLastLogin(loginVM.UserName);
-                return RedirectToAction(nameof(Users));
-            }
-            else
+
+            if (!result.Succeeded)
             {
                 ModelState.AddModelError("", "Invalid login attempt.");
                 return View();
             }
 
+            await userService.UpdateLastLogin(loginVM.UserName);
         }
 
-        catch
+        catch (Exception err)
         {
-            throw;
+            Console.WriteLine("Error: " + err);
         }
 
         return RedirectToAction(nameof(Users));
@@ -171,7 +225,7 @@ public class UserController(IUserService userService) : Controller
 
 
     [AllowAnonymous]
-    [HttpPost("register")] 
+    [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterVM registerVM)
     {
         if (!ModelState.IsValid)
@@ -182,21 +236,21 @@ public class UserController(IUserService userService) : Controller
                 throw new ArgumentNullException
                     (
                         nameof(registerVM),
-                        nameof(registerVM) + " är null"                       
+                        nameof(registerVM) + " är null"
                     );
 
             UserDto userDto = new UserDto
             (
                 registerVM.UserName,
+                registerVM.DisplayName!,
                 registerVM.Email,
                 registerVM.FirstName,
-                registerVM.LastName,
-                registerVM.DisplayName!
+                registerVM.LastName               
             );
 
             var result = await userService.CreateUserAsync(userDto, registerVM.Password);
 
-            if (result.Succeeded) 
+            if (result.Succeeded)
                 result = await userService.SignInAsync(userDto.UserName, registerVM.Password);
 
             else
