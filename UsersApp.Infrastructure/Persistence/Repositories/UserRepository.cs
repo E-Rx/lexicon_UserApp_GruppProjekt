@@ -81,8 +81,20 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
         }
         public async Task RemoveAsync(string id)
         {
-            ApplicationUser user = await GetUserById(id);
-            context.Users.Remove(user);
+            ApplicationUser user = await GetUserById(id) ?? throw new ArgumentNullException
+            (
+                nameof(user) + "returnerade null",
+                nameof(user)
+            ); 
+
+            var result = context.Users.Remove(user);
+
+            if (result.State != EntityState.Deleted)
+                throw new ArgumentException
+                (
+                    nameof(result),
+                    "Applikationen misslyckades med att ta bort objektet " + nameof(user)
+                );
         }
 
         public async Task UpdateLastLogin(string userName)

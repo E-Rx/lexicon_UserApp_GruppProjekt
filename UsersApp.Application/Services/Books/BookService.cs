@@ -14,15 +14,15 @@ public class BookService(IUnitOfWork unitOfWork) : IBookService
     }
     
     public BookDto[] GetAll() => unitOfWork.BookRepository.GetAll();
-    public BookDto? GetById(string isbn) => unitOfWork.BookRepository.GetById(isbn);
+    public async Task<BookDto?> GetById(string isbn) => await unitOfWork.BookRepository.GetById(isbn);
     public async Task EditAsync(BookDto bookDto)
     {
-        unitOfWork.BookRepository.EditAsync(bookDto);
+        await unitOfWork.BookRepository.EditAsync(bookDto);
         await unitOfWork.Save();
     }
-    public async Task RemoveAsync(BookDto book)
+    public async Task RemoveAsync(string isbn)
     {
-        await unitOfWork.BookRepository.RemoveAsync(book);
+        await unitOfWork.BookRepository.RemoveAsync(isbn);
         await unitOfWork.Save();
     } 
         

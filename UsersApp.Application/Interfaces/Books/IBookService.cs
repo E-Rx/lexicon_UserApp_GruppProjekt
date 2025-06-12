@@ -7,7 +7,7 @@ public interface IBookService
 {
     Task AddAsync(BookDto book);
     BookDto[] GetAll();
-    BookDto? GetById(string isbn);
+    Task<BookDto?> GetById(string isbn);
     Task EditAsync(BookDto bookDto);
-    Task RemoveAsync(BookDto book);
+    Task RemoveAsync(string isbn);
 }

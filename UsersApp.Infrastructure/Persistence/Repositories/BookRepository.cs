@@ -36,22 +36,21 @@ public class BookRepository(ApplicationContext context) : IBookRepository
         ))
         .ToArray();
 
-    private Book GetBookById(string isbn)
+    private async Task <Book> GetBookById(string isbn)
     {
-        Book? book =  context.Books!.SingleOrDefault(b => b.ISBN == isbn);
+        Book? book =  await context.Books!.SingleOrDefaultAsync(b => b.ISBN == isbn);
 
         return book ?? throw new ArgumentNullException
-            (
-                nameof(book) + "returnerade null",
-                nameof(book)
-            ); ;
+        (
+            nameof(book) + "returnerade null",
+            nameof(book)
+        ); 
     }
 
-    public BookDto? GetById(string isbn)
+    public async Task<BookDto?> GetById(string isbn)
     {
-        Book? book = context.Books!.SingleOrDefault(b => b.ISBN == isbn);
-        if (book is null)
-            return null;
+        Book? book = await GetBookById(isbn);
+        
         return new BookDto
         (
             book.ISBN,
@@ -60,12 +59,25 @@ public class BookRepository(ApplicationContext context) : IBookRepository
             book.Status,
             book.Condition,
             book.Genre
+        ) 
+        
+        ?? 
+        
+        throw new ArgumentNullException
+        (
+            nameof(book) + "returnerade null",
+            nameof(book)
         );
+
     }
 
-    public void EditAsync(BookDto bookDto)
+    public async Task EditAsync(BookDto bookDto)
     {
-        Book? book = GetBookById(bookDto.isbn);
+        Book? book = await GetBookById(bookDto.isbn) ?? throw new ArgumentNullException
+        (
+            nameof(book) + "returnerade null",
+            nameof(book)
+        ); 
 
         book!.ISBN = bookDto.isbn;
         book.Title = bookDto.title;
@@ -80,15 +92,27 @@ public class BookRepository(ApplicationContext context) : IBookRepository
             throw new ArgumentException
                 (
                     nameof(result),
-                    "Applikationen misslyckades med att lägga till objektet " + nameof(book)
+                    "Applikationen misslyckades med att ändra objektet " + nameof(book)
                 );
     }
         
     
 
-    public async Task RemoveAsync(BookDto book)
+    public async Task RemoveAsync(string isbn)
     {
-        context.Remove(book);
-        await context.SaveChangesAsync();
+        Book? book = await GetBookById(isbn) ?? throw new ArgumentNullException
+        (
+            nameof(book) + "returnerade null",
+            nameof(book)
+        );
+
+        var result = context.Books!.Remove(book);
+
+        if (result.State != EntityState.Deleted)
+            throw new ArgumentException
+            (
+                nameof(result),
+                "Applikationen misslyckades med att ta bort objektet " + nameof(book)
+            );
     }
 }
