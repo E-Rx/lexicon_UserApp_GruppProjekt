@@ -12,4 +12,8 @@ public interface IUserService
     Task EditAsync(string id, UserDto userProfileDto);
     Task RemoveAsync(string id);
     Task UpdateLastLogin(string id);
+
+
+    // Add role to user 
+    //Task AddRoleAsync(string userName, string roleName);
 }

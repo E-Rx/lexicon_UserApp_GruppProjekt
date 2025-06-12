@@ -36,4 +36,10 @@ public class UserService(IIdentityUserService identityUserService, IUnitOfWork u
         await unitOfWork.UserRepository.UpdateLastLogin(id);
         await unitOfWork.Save();
     }
+
+    // Add role to user
+    //public async Task AddToRoleAsync(string userName, string role)
+    //{
+    //    await identityUserService.AddToRoleAsync(userName, role);
+    //}
 }
