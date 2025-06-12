@@ -15,9 +15,9 @@ public class BookService(IUnitOfWork unitOfWork) : IBookService
     
     public BookDto[] GetAll() => unitOfWork.BookRepository.GetAll();
     public BookDto? GetById(string isbn) => unitOfWork.BookRepository.GetById(isbn);
-    public async Task EditAsync(BookDto bookDto, string isbn)
+    public async Task EditAsync(BookDto bookDto)
     {
-        await unitOfWork.BookRepository.EditAsync(bookDto, isbn);
+        unitOfWork.BookRepository.EditAsync(bookDto);
         await unitOfWork.Save();
     }
     public async Task RemoveAsync(BookDto book)

@@ -62,7 +62,7 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
         }
 
         public async Task EditAsync(string id, UserDto userProfileDto)
-        {
+        {           
             ApplicationUser user = await GetUserById(id);
 
             user.Email = userProfileDto.Email;
@@ -70,7 +70,14 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
             user.LastName = userProfileDto.LastName;
             user.LibraryUser.DisplayName = userProfileDto.DisplayName;
 
-            context.Users.Update(user);
+            var result = context.Users.Update(user);
+
+            if (result.State != EntityState.Modified)
+                throw new ArgumentException
+                    (
+                        nameof(result),
+                        "Applikationen misslyckades med att lägga till objektet " + nameof(user)
+                    );
         }
         public async Task RemoveAsync(string id)
         {

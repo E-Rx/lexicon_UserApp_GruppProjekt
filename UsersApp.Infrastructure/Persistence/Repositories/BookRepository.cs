@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using UsersApp.Application.Dtos;
 using UsersApp.Application.Interfaces.Books;
 using UsersApp.Domain.Entities;
@@ -35,9 +36,9 @@ public class BookRepository(ApplicationContext context) : IBookRepository
         ))
         .ToArray();
 
-    private Book? GetBookById(string isbn)
+    private Book GetBookById(string isbn)
     {
-        Book? book = context.Books!.SingleOrDefault(b => b.ISBN == isbn);
+        Book? book =  context.Books!.SingleOrDefault(b => b.ISBN == isbn);
 
         return book ?? throw new ArgumentNullException
             (
@@ -62,9 +63,9 @@ public class BookRepository(ApplicationContext context) : IBookRepository
         );
     }
 
-    public Task EditAsync(BookDto bookDto, string isbn)
+    public void EditAsync(BookDto bookDto)
     {
-        Book? book = GetBookById(isbn);
+        Book? book = GetBookById(bookDto.isbn);
 
         book!.ISBN = bookDto.isbn;
         book.Title = bookDto.title;
@@ -75,8 +76,15 @@ public class BookRepository(ApplicationContext context) : IBookRepository
         
         var result = context.Books!.Update(book);
 
-        
+        if (result.State != EntityState.Modified)
+            throw new ArgumentException
+                (
+                    nameof(result),
+                    "Applikationen misslyckades med att lägga till objektet " + nameof(book)
+                );
     }
+        
+    
 
     public async Task RemoveAsync(BookDto book)
     {

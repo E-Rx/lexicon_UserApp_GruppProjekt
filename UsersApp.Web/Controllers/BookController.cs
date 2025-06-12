@@ -104,7 +104,18 @@ public class BookController(IBookService bookService) : Controller
                     (
                         nameof(editBookVM),
                         nameof(editBookVM) + " är null"
-                    );           
+                    );
+
+            BookDto bookDto = new
+                (
+                    editBookVM.Isbn,
+                    editBookVM.Title,
+                    editBookVM.Author,
+                    editBookVM.Status,
+                    editBookVM.Condition,
+                    editBookVM.Genre
+
+                );          
 
             await bookService.EditAsync(bookDto);
         }

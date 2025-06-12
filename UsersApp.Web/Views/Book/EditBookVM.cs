@@ -1,0 +1,14 @@
+﻿using UsersApp.Domain.Enums.Entities;
+
+namespace UsersApp.Web.Views.Book
+{
+    public class EditBookVM
+    {
+        public required string Isbn { get; set; }
+        public required string Title { get; set; }
+        public required string Author { get; set; }
+        public required BookStatus Status { get; set; }
+        public required BookCondition Condition { get; set; }
+        public required BookGenre Genre { get; set; }
+    }
+}
