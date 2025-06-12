@@ -15,7 +15,16 @@ else
     <ul>
     @foreach(var book in Model.LoanedBooks)
     {
-        <li>@book.Title</li>
+            <li>
+                <div class="container-fluid">
+                    <div class="col-2">
+                        @book.Title
+                    </div>
+                    <div class="col-2 right-aligned">
+                        @book.Author
+                    </div>
+                </div>
+            </li>
     }
     </ul>
 }
