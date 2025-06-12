@@ -153,6 +153,13 @@ public class UserController(IUserService userService) : Controller
         return RedirectToAction(nameof(Users));
     }
 
+    [HttpGet("logout")]
+    public async Task<IActionResult> Logout()
+    {
+        await userService.SignOutAsync();
+        return RedirectToAction(nameof(Login));
+    }
+
     //////////////////////////////////////////////////////
     ///
     [AllowAnonymous]
