@@ -8,5 +8,6 @@ public interface IBookRepository
     Task AddAsync(BookDto book);
     BookDto[] GetAll();
     BookDto? GetById(string isbn);
+    Task EditAsync(BookDto bookDto, string isbn);
     Task RemoveAsync(BookDto book); 
 }

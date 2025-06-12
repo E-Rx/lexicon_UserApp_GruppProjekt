@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using UsersApp.Application.Dtos;
 using UsersApp.Application.Interfaces.Books;
-using UsersApp.Web.Views.Book;
 using UsersApp.Domain.Enums.Entities;
+using UsersApp.Web.Views.Book;
+using UsersApp.Web.Views.User;
 
 
 namespace UsersApp.Web.Controllers;
@@ -40,20 +42,79 @@ public class BookController(IBookService bookService) : Controller
             Isbn = book?.isbn ?? string.Empty,
             Title = book?.title ?? string.Empty,
             Author = book?.author ?? string.Empty,
-            Status = BookStatusExtensions.GetSwedishName(book?.status ?? BookStatus.Available),
-            Condition = BookConditionExtensions.GetSwedishName(book?.condition ?? BookCondition.New),
-            Genre = BookGenreExtensions.GetSwedishName(book?.genre ?? BookGenre.Fiction)
+            Status = book?.status ?? BookStatus.Available,
+            Condition = book?.condition ?? BookCondition.New,
+            Genre = book?.genre ?? BookGenre.Fiction
         };
         return View(book);
     }
 
-    [HttpGet("/register")]
+    [HttpGet("register")]
     public IActionResult RegisterBook() => View();
 
-    [HttpPost("/register")]
-    public IActionResult RegisterBook(RegisterBookVM registerBookVM)
+    [HttpPost("register")]
+    public async Task<IActionResult> RegisterBook(RegisterBookVM registerBookVM)
     {
+        if (!ModelState.IsValid)
+            return View();
 
+        try
+        {
+            if (registerBookVM == null)
+                throw new ArgumentNullException
+                    (
+                        nameof(registerBookVM),
+                        nameof(registerBookVM) + " är null"
+                    );           
+
+            BookDto bookDto = new BookDto
+            (
+                registerBookVM.ISBN,
+                registerBookVM.Title,
+                registerBookVM.Author,
+                registerBookVM.Status,
+                registerBookVM.Condition,
+                registerBookVM.Genre
+            );
+
+            await bookService.AddAsync(bookDto);
+        }
+
+        catch (Exception err)
+        {
+            Console.WriteLine("Error: " + err);
+        }
+
+        return RedirectToAction(nameof(Index));
     }
-    
+
+    [HttpGet("edit")]
+    public IActionResult EditBook() => View();
+
+    [HttpPost("edit")]
+    public async Task<IActionResult> EditBook(EditBookVM editBookVM)
+    {
+        if (!ModelState.IsValid)
+            return View();
+
+        try
+        {
+            if (editBookVM == null)
+                throw new ArgumentNullException
+                    (
+                        nameof(editBookVM),
+                        nameof(editBookVM) + " är null"
+                    );           
+
+            await bookService.EditAsync(bookDto);
+        }
+
+        catch (Exception err)
+        {
+            Console.WriteLine("Error: " + err);
+        }
+
+        return RedirectToAction(nameof(Index));
+    }
+
 }

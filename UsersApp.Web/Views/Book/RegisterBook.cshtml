@@ -1,41 +1,53 @@
-﻿@model RegisterBookVM
+﻿@using UsersApp.Domain.Enums.Entities
+@model RegisterBookVM
 
 @{
-    ViewBag.Title = "Registera bok";
+    ViewBag.Title = "Registera bok";  
 }
 
-<form asp-controller="User" asp-action="Register">
+<form asp-controller="Book" asp-action="Register">
 
-    <label asp-for="UserName"></label>
-    <input asp-for="UserName" />
-    <span asp-validation-for="UserName"></span>
+    <label asp-for="ISBN"></label>
+    <input asp-for="ISBN" />
+    <span asp-validation-for="ISBN"></span>
 
-    <label asp-for="DisplayName"></label>
-    <input asp-for="DisplayName" />
-    <span asp-validation-for="DisplayName"></span>
+    <label asp-for="Title"></label>
+    <input asp-for="Title" />
+    <span asp-validation-for="Title"></span>
 
-    <label asp-for="FirstName"></label>
-    <input asp-for="FirstName" />
-    <span asp-validation-for="FirstName"></span>
+    <label asp-for="Author"></label>
+    <input asp-for="Author" />
+    <span asp-validation-for="Author"></span>
 
-    <label asp-for="LastName"></label>
-    <input asp-for="LastName" />
-    <span asp-validation-for="LastName"></span>
+    <label asp-for="Status"></label>
+    <select asp-for="Status">
+        @foreach (BookStatus status in Enum.GetValues(typeof(BookStatus)))
+        {
+            <option value="@status">@BookStatusExtensions.GetSwedishName(status)</option>
+        }
 
-    <label asp-for="Email"></label>
-    <input asp-for="Email" />
-    <span asp-validation-for="Email"></span>
+    </select>
+    
+    <label asp-for="Condition"></label>
+    <select asp-for="Condition">
+        @foreach (BookCondition condition in Enum.GetValues(typeof(BookCondition)))
+        {
+            <option value="@condition">@BookConditionExtensions.GetSwedishName(condition)</option>
+        }
 
-    <label asp-for="Password"></label>
-    <input asp-for="Password" />
-    <span asp-validation-for="Password"></span>
+    </select>
 
-    <label asp-for="PasswordRepeat"></label>
-    <input asp-for="PasswordRepeat" />
-    <span asp-validation-for="PasswordRepeat"></span>
+    <label asp-for="Genre"></label>
+    <select asp-for="Genre">
+        @foreach (BookGenre genre in Enum.GetValues(typeof(BookGenre)))
+        {
+            <option value="@genre">@BookGenreExtensions.GetSwedishName(genre)</option>
+        }
+
+    </select>
 
     <br />
-    <input type="submit" value="Register" />
+    <input type="submit" value="Register"/>
     <div asp-validation-summary="All"></div>
 </form>
 
