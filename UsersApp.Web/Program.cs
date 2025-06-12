@@ -1,16 +1,17 @@
-using UsersApp.Infrastructure.Persistence;
-using UsersApp.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using UsersApp.Infrastructure.Persistence.Repositories;
+using UsersApp.Application.Interfaces;
 using UsersApp.Application.Interfaces.Books;
 using UsersApp.Application.Interfaces.Loans;
 using UsersApp.Application.Interfaces.Users;
-using UsersApp.Application.Services.Users;
-using UsersApp.Application.Interfaces;
 using UsersApp.Application.Services.Books;
 using UsersApp.Application.Services.Loans;
+using UsersApp.Application.Services.Users;
+using UsersApp.Domain.Entities;
+using UsersApp.Infrastructure.Persistence;
+using UsersApp.Infrastructure.Persistence.Repositories;
+using UsersApp.Infrastructure.Services;
 
 
 
@@ -48,12 +49,13 @@ public class Program
 
         var app = builder.Build();
 
-        using (var scope = app.Services.CreateScope())
-        {
-            
-        }
+        //using (var scope = app.Services.CreateScope())
+        //{
 
-            app.UseRouting();
+        //}
+
+
+        app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
 
