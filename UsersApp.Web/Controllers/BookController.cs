@@ -28,11 +28,11 @@ public class BookController(IBookService bookService) : Controller
     }
 
     [HttpGet("details")]
-    public IActionResult Details(string Id)
+    public IActionResult Details(string Isbn)
     {
-        BookDto? book = bookService.GetById(Id);
+        BookDto? book = bookService.GetById(Isbn);
         if (book is null)
-            return NotFound($"Boken med ISBN {Id} hittades inte.");
+            return NotFound($"Boken med ISBN {Isbn} hittades inte.");
 
         DetailsVM model = new DetailsVM
         {
