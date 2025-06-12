@@ -4,7 +4,7 @@ namespace UsersApp.Web.Views.Book;
 
 public class DetailsVM
 {
-    public required string Isbn { get; set; }
+    public required string ISBN { get; set; } 
     public required string Title { get; set; }
     public required string Author { get; set; }
     public required BookStatus Status { get; set; }

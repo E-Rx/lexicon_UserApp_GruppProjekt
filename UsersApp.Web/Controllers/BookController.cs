@@ -41,7 +41,7 @@ public class BookController(IBookService bookService) : Controller
 
         DetailsVM model = new DetailsVM
         {
-            Isbn = book?.isbn ?? string.Empty,
+            ISBN = book?.isbn ?? string.Empty,
             Title = book?.title ?? string.Empty,
             Author = book?.author ?? string.Empty,
             Status = book?.status ?? BookStatus.Available,

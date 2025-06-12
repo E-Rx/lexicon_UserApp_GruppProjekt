@@ -4,57 +4,74 @@
     ViewBag.Title = "Registrera konto";
 }
 
-<form asp-controller="User" asp-action="Register">
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <form asp-controller="User" asp-action="Register" method="post" class="card shadow p-4">
+            <h3 class="mb-4 text-center">Registrera konto</h3>
 
-    <label asp-for="UserName"></label>
-    <input asp-for="UserName" />
-    <span asp-validation-for="UserName"></span>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="UserName" class="form-label"></label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger small"></span>
+                </div>
 
-    <label asp-for="DisplayName"></label>
-    <input asp-for="DisplayName" />
-    <span asp-validation-for="DisplayName"></span>
+                <div class="col-md-6">
+                    <label asp-for="DisplayName" class="form-label"></label>
+                    <input asp-for="DisplayName" class="form-control" />
+                    <span asp-validation-for="DisplayName" class="text-danger small"></span>
+                </div>
 
-    <label asp-for="FirstName"></label>
-    <input asp-for="FirstName" />
-    <span asp-validation-for="FirstName"></span>
+                <div class="col-md-6">
+                    <label asp-for="FirstName" class="form-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger small"></span>
+                </div>
 
-    <label asp-for="LastName"></label>
-    <input asp-for="LastName" />
-    <span asp-validation-for="LastName"></span>
+                <div class="col-md-6">
+                    <label asp-for="LastName" class="form-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger small"></span>
+                </div>
 
-    <label asp-for="Email"></label>
-    <input asp-for="Email" />
-    <span asp-validation-for="Email"></span>
+                <div class="col-12">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
 
-    <label asp-for="Password"></label>
-    <input asp-for="Password" />
-    <span asp-validation-for="Password"></span>
+                <div class="col-md-6">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" class="form-control" type="password" />
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
 
-    <label asp-for="PasswordRepeat"></label>
-    <input asp-for="PasswordRepeat" />
-    <span asp-validation-for="PasswordRepeat"></span>
+                <div class="col-md-6">
+                    <label asp-for="PasswordRepeat" class="form-label"></label>
+                    <input asp-for="PasswordRepeat" class="form-control" type="password" />
+                    <span asp-validation-for="PasswordRepeat" class="text-danger small"></span>
+                </div>
+            </div>
 
-    <br/>
-    <input type="submit" value="Register"/>
-    <div asp-validation-summary="All"></div>
-</form>
+            <div class="mt-4 text-center">
+                <input type="submit" value="Registrera" class="btn btn-success w-100" />
+            </div>
 
-@section scripts
-{
+            <div asp-validation-summary="All" class="text-danger small mt-2"></div>
+        </form>
+    </div>
+</div>
+
+@section scripts {
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.min.js"
             asp-fallback-src="~/scripts/jquery/jquery.min.js"
-            asp-fallback-test="window.jQuery">
-    </script>
+            asp-fallback-test="window.jQuery"></script>
 
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/jquery.validate.min.js"
             asp-fallback-src="~/scripts/jquery-validate/jquery.validate.min.js"
-            asp-fallback-test="$.validator">
-    </script>
+            asp-fallback-test="$.validator"></script>
 
     <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"
             asp-fallback-src="~/scripts/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
-            asp-fallback-test="$.validator.unobtrusive">
-    </script>
+            asp-fallback-test="$.validator.unobtrusive"></script>
 }
-
-

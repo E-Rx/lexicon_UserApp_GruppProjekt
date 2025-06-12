@@ -3,5 +3,37 @@
     ViewBag.Title = $"Information om {Model.Title}";
 }
 
-<a asp-controller="Book" asp-action="EditBook" asp-route-isbn="@Model.Isbn">Redigera boken</a>
+<div class="container my-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">@Model.Title</h3>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">ISBN</dt>
+                <dd class="col-sm-9">@Model.ISBN</dd>
 
+                <dt class="col-sm-3">Författare</dt>
+                <dd class="col-sm-9">@Model.Author</dd>
+
+                <dt class="col-sm-3">Status</dt>
+                <dd class="col-sm-9">@Model.Status</dd>
+
+                <dt class="col-sm-3">Skick</dt>
+                <dd class="col-sm-9">@Model.Condition</dd>
+
+                <dt class="col-sm-3">Genre</dt>
+                <dd class="col-sm-9">@Model.Genre</dd>
+            </dl>
+
+            <div class="mt-4 text-end">
+                <a asp-controller="Book" asp-action="EditBook" asp-route-isbn="@Model.ISBN" class="btn btn-outline-primary">
+                    ✏️ Redigera boken
+                </a>
+                <a asp-controller="Book" asp-action="Index" class="btn btn-secondary ms-2">
+                    ← Tillbaka
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

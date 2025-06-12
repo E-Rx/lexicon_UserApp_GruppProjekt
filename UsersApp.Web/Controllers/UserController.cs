@@ -18,12 +18,12 @@ public class UserController(IUserService userService) : Controller
     [HttpGet("")]
     public async Task<IActionResult> Index()
     {
-        return RedirectToAction(nameof(Login));
+        return View();
     }
 
     //////////////////////////////////////////////////////
 
-    [HttpGet("/users")]
+    [HttpGet("users")]
     public async Task<IActionResult> Users()
     {
 

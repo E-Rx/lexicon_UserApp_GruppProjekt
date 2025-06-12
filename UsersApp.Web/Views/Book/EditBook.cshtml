@@ -5,53 +5,77 @@
     ViewBag.Title = "Redigera bok";
 }
 
+<div class="container my-5">
+    <h2 class="mb-4">✏️ Redigera bok</h2>
 
-<form asp-controller="Book" asp-action="Edit" asp-route-isbn="@Model.ISBN">
+    <form asp-controller="Book" asp-action="Edit" asp-route-isbn="@Model.ISBN" class="row g-3">
 
-    <label asp-for="ISBN"></label>
-    <input value="@Model.ISBN"asp-for="ISBN" />
-    <span asp-validation-for="ISBN"></span>
+        <div class="col-md-6">
+            <label asp-for="ISBN" class="form-label"></label>
+            <input asp-for="ISBN" class="form-control" readonly />  <!-- ISBN en readonly si tu veux l'empêcher de changer -->
+            <span asp-validation-for="ISBN" class="text-danger"></span>
+        </div>
 
-    <label asp-for="Title"></label>
-    <input value="@Model.Title"asp-for="Title" />
-    <span asp-validation-for="Title"></span>
+        <div class="col-md-6">
+            <label asp-for="Title" class="form-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
 
-    <label asp-for="Author"></label>
-    <input value="@Model.Author"asp-for="Author" />
-    <span asp-validation-for="Author"></span>
+        <div class="col-md-6">
+            <label asp-for="Author" class="form-label"></label>
+            <input asp-for="Author" class="form-control" />
+            <span asp-validation-for="Author" class="text-danger"></span>
+        </div>
 
-    <label asp-for="Status"></label>
-    <select asp-for="Status">
-        @foreach (BookStatus status in Enum.GetValues(typeof(BookStatus)))
-        {
-            <option value="@status" selected>@BookStatusExtensions.GetSwedishName(status)</option>
-           
-        }
+        <div class="col-md-6">
+            <label asp-for="Status" class="form-label"></label>
+            <select asp-for="Status" class="form-select">
+                @foreach (BookStatus status in Enum.GetValues(typeof(BookStatus)))
+                {
+                    <option value="@status" selected="@(status == Model.Status ? "selected" : null)">
+                        @BookStatusExtensions.GetSwedishName(status)
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
 
-    </select>
+        <div class="col-md-6">
+            <label asp-for="Condition" class="form-label"></label>
+            <select asp-for="Condition" class="form-select">
+                @foreach (BookCondition condition in Enum.GetValues(typeof(BookCondition)))
+                {
+                    <option value="@condition" selected="@(condition == Model.Condition ? "selected" : null)">
+                        @BookConditionExtensions.GetSwedishName(condition)
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="Condition" class="text-danger"></span>
+        </div>
 
-    <label asp-for="Condition"></label>
-    <select value="@Model.Status" asp-for=" Condition">
-        @foreach (BookCondition condition in Enum.GetValues(typeof(BookCondition)))
-        {
-            <option value="@condition" selected>@BookConditionExtensions.GetSwedishName(condition)</option>
-        }
+        <div class="col-md-6">
+            <label asp-for="Genre" class="form-label"></label>
+            <select asp-for="Genre" class="form-select">
+                @foreach (BookGenre genre in Enum.GetValues(typeof(BookGenre)))
+                {
+                    <option value="@genre" selected="@(genre == Model.Genre ? "selected" : null)">
+                        @BookGenreExtensions.GetSwedishName(genre)
+                    </option>
+                }
+            </select>
+            <span asp-validation-for="Genre" class="text-danger"></span>
+        </div>
 
-    </select>
+        <div class="col-12 mt-3">
+            <input type="submit" value="Spara ändringar" class="btn btn-primary" />
+        </div>
 
-    <label asp-for="Genre"></label>
-    <select asp-for="Genre">
-        @foreach (BookGenre genre in Enum.GetValues(typeof(BookGenre)))
-        {
-            <option value="@genre" selected>@BookGenreExtensions.GetSwedishName(genre)</option>
-        }
-
-    </select>
-
-    <br />
-    <input type="submit" value="EditBook" />
-    <div asp-validation-summary="All"></div>
-</form>
+        <div class="col-12">
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+    </form>
+</div>
 
 @section scripts
 {

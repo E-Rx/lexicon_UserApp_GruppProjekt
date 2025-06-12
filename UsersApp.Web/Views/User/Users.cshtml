@@ -4,27 +4,33 @@
     ViewBag.Title = "Min sida";
 }
 
-<h2>Välkommen @User.FindFirst("DisplayName")</h2>
+<h2>Välkommen @Model.DisplayName</h2>
 
-@if (Model.LoanedBooks?.Length == 0)
-{
-    <p>Inga lånade böcker</p>
-}
-else
-{
-    <ul>
-    @foreach(var book in Model.LoanedBooks!)
-    {
-            <li>
-                <div class="d-flex container-fluid">
-                    <div class="col-2">
-                        @book.Title
-                    </div>
-                    <div class="col-2 right-aligned">
-                        @book.Author
-                    </div>
-                </div>
-            </li>
-    }
-    </ul>
-}
+<div class="d-flex">
+    <div class="col-4">
+        @if (Model.LoanedBooks == null || Model.LoanedBooks.Length == 0)
+        {
+            <p>Inga lånade böcker</p>
+        }
+        else
+        {
+            <ul class="list-unstyled">
+                @foreach (var book in Model.LoanedBooks!)
+                {
+                    <li>
+                        <a href="#" class="text-decoration-none text-dark">
+                            <div class="d-flex container-fluid">
+                                <div class="col-6">
+                                    @book.Title
+                                </div>
+                                <div class="col-6 text-end">
+                                    @book.Author
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>

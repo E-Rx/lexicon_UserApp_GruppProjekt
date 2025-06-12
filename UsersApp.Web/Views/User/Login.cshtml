@@ -4,17 +4,28 @@
     ViewBag.Title = "Logga in";
 }
 
-<form asp-controller="User" asp-action="Login"> 
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-controller="User" asp-action="Login" method="post" class="card shadow p-4">
+            <h3 class="mb-4 text-center">Logga in</h3>
 
-    <label asp-for="UserName"></label>
-    <input asp-for="UserName" placeholder="Användarnamn"/>
-    <span asp-validation-for="UserName"></span>
+            <div class="mb-3">
+                <label asp-for="UserName" class="form-label"></label>
+                <input asp-for="UserName" class="form-control" placeholder="Användarnamn" />
+                <span asp-validation-for="UserName" class="text-danger small"></span>
+            </div>
 
-    <label asp-for="Password"></label>
-    <input asp-for="Password" placeholder="Lösenord" />
-    <span asp-validation-for="Password"></span>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control" placeholder="Lösenord" type="password" />
+                <span asp-validation-for="Password" class="text-danger small"></span>
+            </div>
 
-    <input type="submit" value="Login"/>
-    <div asp-validation-summary="All"></div>
+            <div class="mb-3 text-center">
+                <input type="submit" value="Bekräfta" class="btn btn-primary w-100" />
+            </div>
 
-</form>
+            <div asp-validation-summary="All" class="text-danger small"></div>
+        </form>
+    </div>
+</div>

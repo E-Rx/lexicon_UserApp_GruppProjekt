@@ -2,69 +2,71 @@
 @model RegisterBookVM
 
 @{
-    ViewBag.Title = "Registera bok";  
+    ViewBag.Title = "Registrera bok";
 }
 
-<form asp-controller="Book" asp-action="Register">
+<div class="container my-5">
+    <h2 class="mb-4">📘 Registrera en ny bok</h2>
 
-    <label asp-for="ISBN"></label>
-    <input asp-for="ISBN" />
-    <span asp-validation-for="ISBN"></span>
+    <form asp-controller="Book" asp-action="Register" class="row g-3">
 
-    <label asp-for="Title"></label>
-    <input asp-for="Title" />
-    <span asp-validation-for="Title"></span>
+        <div class="col-md-6">
+            <label asp-for="ISBN" class="form-label"></label>
+            <input asp-for="ISBN" class="form-control" />
+            <span asp-validation-for="ISBN" class="text-danger"></span>
+        </div>
 
-    <label asp-for="Author"></label>
-    <input asp-for="Author" />
-    <span asp-validation-for="Author"></span>
+        <div class="col-md-6">
+            <label asp-for="Title" class="form-label"></label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
 
-    <label asp-for="Status"></label>
-    <select asp-for="Status">
-        @foreach (BookStatus status in Enum.GetValues(typeof(BookStatus)))
-        {
-            <option value="@status">@BookStatusExtensions.GetSwedishName(status)</option>
-        }
+        <div class="col-md-6">
+            <label asp-for="Author" class="form-label"></label>
+            <input asp-for="Author" class="form-control" />
+            <span asp-validation-for="Author" class="text-danger"></span>
+        </div>
 
-    </select>
-    
-    <label asp-for="Condition"></label>
-    <select asp-for="Condition">
-        @foreach (BookCondition condition in Enum.GetValues(typeof(BookCondition)))
-        {
-            <option value="@condition">@BookConditionExtensions.GetSwedishName(condition)</option>
-        }
+        <div class="col-md-6">
+            <label asp-for="Status" class="form-label"></label>
+            <select asp-for="Status" class="form-select">
+                @foreach (BookStatus status in Enum.GetValues(typeof(BookStatus)))
+                {
+                    <option value="@status">@BookStatusExtensions.GetSwedishName(status)</option>
+                }
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
 
-    </select>
+        <div class="col-md-6">
+            <label asp-for="Condition" class="form-label"></label>
+            <select asp-for="Condition" class="form-select">
+                @foreach (BookCondition condition in Enum.GetValues(typeof(BookCondition)))
+                {
+                    <option value="@condition">@BookConditionExtensions.GetSwedishName(condition)</option>
+                }
+            </select>
+            <span asp-validation-for="Condition" class="text-danger"></span>
+        </div>
 
-    <label asp-for="Genre"></label>
-    <select asp-for="Genre">
-        @foreach (BookGenre genre in Enum.GetValues(typeof(BookGenre)))
-        {
-            <option value="@genre">@BookGenreExtensions.GetSwedishName(genre)</option>
-        }
+        <div class="col-md-6">
+            <label asp-for="Genre" class="form-label"></label>
+            <select asp-for="Genre" class="form-select">
+                @foreach (BookGenre genre in Enum.GetValues(typeof(BookGenre)))
+                {
+                    <option value="@genre">@BookGenreExtensions.GetSwedishName(genre)</option>
+                }
+            </select>
+            <span asp-validation-for="Genre" class="text-danger"></span>
+        </div>
 
-    </select>
+        <div class="col-12 mt-3">
+            <input type="submit" value="Registrera bok" class="btn btn-primary" />
+        </div>
 
-    <br />
-    <input type="submit" value="Register"/>
-    <div asp-validation-summary="All"></div>
-</form>
-
-@section scripts
-{
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.min.js"
-            asp-fallback-src="~/scripts/jquery/jquery.min.js"
-            asp-fallback-test="window.jQuery">
-    </script>
-
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/jquery.validate.min.js"
-            asp-fallback-src="~/scripts/jquery-validate/jquery.validate.min.js"
-            asp-fallback-test="$.validator">
-    </script>
-
-    <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"
-            asp-fallback-src="~/scripts/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
-            asp-fallback-test="$.validator.unobtrusive">
-    </script>
-}
+        <div class="col-12">
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+    </form>
+</div>
