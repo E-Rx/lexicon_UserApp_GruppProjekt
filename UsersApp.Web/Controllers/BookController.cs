@@ -5,6 +5,7 @@ using UsersApp.Application.Interfaces.Books;
 using UsersApp.Web.Views.Book;
 using UsersApp.Domain.Enums.Entities;
 
+
 namespace UsersApp.Web.Controllers;
 
 [Authorize]
@@ -45,4 +46,14 @@ public class BookController(IBookService bookService) : Controller
         };
         return View(book);
     }
+
+    [HttpGet("/register")]
+    public IActionResult RegisterBook() => View();
+
+    [HttpPost("/register")]
+    public IActionResult RegisterBook(RegisterBookVM registerBookVM)
+    {
+
+    }
+    
 }

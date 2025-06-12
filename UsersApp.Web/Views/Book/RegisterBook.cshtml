@@ -1,0 +1,58 @@
+﻿@model RegisterBookVM
+
+@{
+    ViewBag.Title = "Registera bok";
+}
+
+<form asp-controller="User" asp-action="Register">
+
+    <label asp-for="UserName"></label>
+    <input asp-for="UserName" />
+    <span asp-validation-for="UserName"></span>
+
+    <label asp-for="DisplayName"></label>
+    <input asp-for="DisplayName" />
+    <span asp-validation-for="DisplayName"></span>
+
+    <label asp-for="FirstName"></label>
+    <input asp-for="FirstName" />
+    <span asp-validation-for="FirstName"></span>
+
+    <label asp-for="LastName"></label>
+    <input asp-for="LastName" />
+    <span asp-validation-for="LastName"></span>
+
+    <label asp-for="Email"></label>
+    <input asp-for="Email" />
+    <span asp-validation-for="Email"></span>
+
+    <label asp-for="Password"></label>
+    <input asp-for="Password" />
+    <span asp-validation-for="Password"></span>
+
+    <label asp-for="PasswordRepeat"></label>
+    <input asp-for="PasswordRepeat" />
+    <span asp-validation-for="PasswordRepeat"></span>
+
+    <br />
+    <input type="submit" value="Register" />
+    <div asp-validation-summary="All"></div>
+</form>
+
+@section scripts
+{
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.min.js"
+            asp-fallback-src="~/scripts/jquery/jquery.min.js"
+            asp-fallback-test="window.jQuery">
+    </script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.2/jquery.validate.min.js"
+            asp-fallback-src="~/scripts/jquery-validate/jquery.validate.min.js"
+            asp-fallback-test="$.validator">
+    </script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"
+            asp-fallback-src="~/scripts/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+            asp-fallback-test="$.validator.unobtrusive">
+    </script>
+}
