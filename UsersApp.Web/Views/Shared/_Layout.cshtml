@@ -13,9 +13,13 @@
         <nav>
             <a asp-controller="User" asp-action="Users">Användare</a>
             <a asp-controller="User" asp-action="Register">Registera</a>
+            &nbsp;|&nbsp;
+            <a asp-controller="Book" asp-action="Index">Böcker</a>
+            &nbsp;|&nbsp;
             @if (User.Identity.IsAuthenticated)
             {
                 <a asp-controller="User" asp-action="UserDetails">Mina data</a>
+                @Html.Raw("&nbsp;| &nbsp;")
                 <a asp-controller="User" asp-action="LogOut">Logga ut</a>
             }
             else
