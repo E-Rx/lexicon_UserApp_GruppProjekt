@@ -33,11 +33,12 @@ public class UserController(IUserService userService) : Controller
             if (user != null)
             {
                 UserDto userDto = await userService.GetUserDtoById(user);
-                
+
                 UsersVM usersVM = new()
                 {
                     UserName = userDto.UserName,
-                    DisplayName = userDto.DisplayName
+                    DisplayName = userDto.DisplayName,
+                    LoanedBooks = []
                 };
 
                 return View(usersVM);
@@ -84,7 +85,7 @@ public class UserController(IUserService userService) : Controller
     */
     //////////////////////////////////////////////////////
 
-    [HttpGet("users/{Id}/details")]
+    /*[HttpGet("users/{Id}/details")]
     public async Task<IActionResult> UserDetails()
     {
         return View();
@@ -109,7 +110,7 @@ public class UserController(IUserService userService) : Controller
         }
 
         return RedirectToAction(nameof(Users));
-    }
+    }*/
 
     //////////////////////////////////////////////////////
 
@@ -130,14 +131,23 @@ public class UserController(IUserService userService) : Controller
 
         try
         {
-
+            var result = await userService.SignInAsync(loginVM.UserName, loginVM.Password);
+            if (result.Succeeded)
+            {
+                await userService.UpdateLastLogin(loginVM.UserName);
+                return RedirectToAction(nameof(Users));
+            }
+            else
+            {
+                ModelState.AddModelError("", "Invalid login attempt.");
+                return View();
+            }
 
         }
 
         catch
         {
-
-
+            throw;
         }
 
         return RedirectToAction(nameof(Users));

@@ -7,20 +7,20 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
 {
     public class UserRepository(ApplicationContext context) : IUserRepository
     {
-       
+
         private async Task<ApplicationUser> GetUserById(string id)
         {
             ApplicationUser? user = await context.Users
-                .Include(o => o.LibraryUser)               
+                .Include(o => o.LibraryUser)
                 .SingleOrDefaultAsync(u => u.Id == id);
 
-            if (user == null)          
+            if (user == null)
                 throw new ArgumentException
                     (
                         "Objektet " + nameof(user) + " kunde inte hittas.",
                         nameof(user)
                     );
-            
+
             return user;
         }
 
@@ -31,7 +31,7 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
             UserDto userDto = new
                 (
                     user.UserName!,
-                    user.Email!,                   
+                    user.Email!,
                     user.FirstName!,
                     user.LastName!,
                     user.LibraryUser.DisplayName!
@@ -53,7 +53,7 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
 
             return userDtos;
         }
-            
+
         public async Task EditAsync(string id, UserDto userProfileDto)
         {
             ApplicationUser user = await GetUserById(id);
@@ -61,9 +61,9 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
             user.Email = userProfileDto.Email;
             user.FirstName = userProfileDto.FirstName;
             user.LastName = userProfileDto.LastName;
-            user.LibraryUser.DisplayName = userProfileDto.DisplayName; 
-            
-            context.Users.Update(user);              
+            user.LibraryUser.DisplayName = userProfileDto.DisplayName;
+
+            context.Users.Update(user);
         }
         public async Task RemoveAsync(string id)
         {
@@ -71,12 +71,29 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
             context.Users.Remove(user);
         }
 
-        public async Task UpdateLastLogin(string id)
+        public async Task UpdateLastLogin(string userName)
         {
-            ApplicationUser user = await GetUserById(id);           
+            ApplicationUser user = await GetUserByUserName(userName);
             user.LastLogin = DateTime.Now;
 
-            context.Users.Update(user);      
+            context.Users.Update(user);
+        }
+
+        private async Task<ApplicationUser> GetUserByUserName(string userName)
+        {
+            ApplicationUser? user = await context.Users
+                .Include(o => o.LibraryUser)
+                .SingleOrDefaultAsync(u => u.NormalizedUserName == userName.ToUpperInvariant() );
+
+            if (user == null)
+                throw new ArgumentException
+                    (
+                        "Objektet " + nameof(user) + " kunde inte hittas.",
+                        nameof(user)
+                    );
+
+            return user;
+
         }
     }
 }

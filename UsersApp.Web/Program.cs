@@ -41,8 +41,10 @@ public class Program
 
 
         var app = builder.Build();
-       
+
+        app.UseRouting();
         app.UseAuthentication();
+        app.UseAuthorization();
 
         app.UseHttpsRedirection();
         app.MapControllers();
