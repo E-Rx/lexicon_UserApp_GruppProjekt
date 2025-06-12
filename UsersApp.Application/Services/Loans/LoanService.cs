@@ -20,6 +20,11 @@ public class LoanService(IUnitOfWork unitOfWork) : ILoanService
         await unitOfWork.LoanRepository.RemoveAsync(loan);
         await unitOfWork.Save();
     }
+
+    public async Task<LoanDto[]> GetAllByUserIdAsync(Guid userId)
+    {
+        return await unitOfWork.LoanRepository.GetAllByUserIdAsync(userId);
+    }
 }
 
 

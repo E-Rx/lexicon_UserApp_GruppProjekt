@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Claims;
 using UsersApp.Application.Dtos;
 using UsersApp.Application.Interfaces;
+using UsersApp.Application.Interfaces.Books;
+using UsersApp.Application.Interfaces.Loans;
 using UsersApp.Application.Interfaces.Users;
 using UsersApp.Application.Services.Users;
 using UsersApp.Web.Views.User;
@@ -12,7 +14,7 @@ using UsersApp.Web.Views.User;
 namespace UsersApp.Web.Controllers;
 
 [Authorize]
-public class UserController(IUserService userService) : Controller
+public class UserController(IUserService userService, ILoanService loanService) : Controller
 {
     [AllowAnonymous]
     [HttpGet("")]
@@ -33,6 +35,7 @@ public class UserController(IUserService userService) : Controller
             if (user != null)
             {
                 UserDto userDto = await userService.GetUserDtoById(user);
+                BookDto[] bookDto = await loanService.GetAllByUserIdAsync(Guid.Parse(user));
 
                 UsersVM usersVM = new()
                 {
