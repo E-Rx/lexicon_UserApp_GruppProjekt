@@ -21,16 +21,6 @@ namespace UsersApp.Web.Views.User
 
         [Required(ErrorMessage = "Var vänlig och ange ett efternamn")]
         [Display(Name = "Efternamn")]
-        public required string LastName { get; set; }
-
-        [Required(ErrorMessage = "Var vänlig och ange ett lösenord.")]
-        [DataType(DataType.Password)]
-        public required string Password { get; set; }
-
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Repetera lösenordet")]
-        [Compare(nameof(Password))]
-        public required string PasswordRepeat { get; set; }
+        public required string LastName { get; set; }      
     }
 }
