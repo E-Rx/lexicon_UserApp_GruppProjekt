@@ -46,7 +46,7 @@ public class BookController(IBookService bookService) : Controller
             Condition = book?.condition ?? BookCondition.New,
             Genre = book?.genre ?? BookGenre.Fiction
         };
-        return View(book);
+        return View(model);
     }
 
     [HttpGet("register")]
