@@ -12,7 +12,7 @@
 
         <div class="col-md-6">
             <label asp-for="ISBN" class="form-label"></label>
-            <input asp-for="ISBN" class="form-control" readonly />  <!-- ISBN en readonly si tu veux l'empêcher de changer -->
+            <input asp-for="ISBN" class="form-control" readonly />  
             <span asp-validation-for="ISBN" class="text-danger"></span>
         </div>
 
@@ -69,6 +69,12 @@
 
         <div class="col-12 mt-3">
             <input type="submit" value="Spara ändringar" class="btn btn-primary" />
+
+            <form asp-controller="Book" asp-action="Delete" asp-route-isbn="@Model.ISBN" method="post" onsubmit="return confirm('Är du säker på att du vill ta bort boken?');">
+                <button type="submit" class="btn btn-danger">
+                    🗑️ Raddera
+                </button>
+            </form>
         </div>
 
         <div class="col-12">

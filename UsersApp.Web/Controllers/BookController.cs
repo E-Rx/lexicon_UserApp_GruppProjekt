@@ -51,6 +51,7 @@ public class BookController(IBookService bookService) : Controller
         return View(model);
     }
 
+    //[Authorize(Roles = "Admin")]
     [HttpGet("register")]
     public IActionResult RegisterBook() => View();
 
@@ -90,6 +91,7 @@ public class BookController(IBookService bookService) : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    //[Authorize(Roles = "Admin")]
     [HttpGet("details/edit")]
     public async Task<IActionResult> EditBook(string isbn)
     {
@@ -131,6 +133,7 @@ public class BookController(IBookService bookService) : Controller
         return View();
     }
 
+    //[Authorize(Roles = "Admin")]
     [HttpPost("details/edit")]
     public async Task<IActionResult> EditBook(EditBookVM editBookVM)
     {
@@ -167,4 +170,24 @@ public class BookController(IBookService bookService) : Controller
         return RedirectToAction(nameof(Index));
     }
 
+
+    //[Authorize(Roles = "Admin")]
+    [HttpPost("details/delete")]
+    public async Task<IActionResult> DeleteBook(string isbn)
+    {
+        if (string.IsNullOrEmpty(isbn))
+            return BadRequest("ISBN är tomt eller null.");
+
+        try
+        {
+            await bookService.RemoveAsync(isbn);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Fel vid borttagning: " + ex);
+            return StatusCode(500, "Ett fel uppstod vid borttagning av boken.");
+        }
+
+        return RedirectToAction(nameof(Index));
+    }
 }

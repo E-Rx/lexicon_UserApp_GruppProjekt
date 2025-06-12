@@ -1,7 +1,10 @@
-﻿@model DetailsVM
+﻿@using UsersApp.Domain.Enums.Entities
+@model DetailsVM
+
 @{
     ViewBag.Title = $"Information om {Model.Title}";
 }
+
 
 <div class="container my-5">
     <div class="card shadow-sm">
@@ -27,9 +30,34 @@
             </dl>
 
             <div class="mt-4 text-end">
-                <a asp-controller="Book" asp-action="EditBook" asp-route-isbn="@Model.ISBN" class="btn btn-outline-primary">
-                    ✏️ Redigera boken
-                </a>
+                
+                @* ADMIN  *@
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Book" asp-action="EditBook" asp-route-isbn="@Model.ISBN" class="btn btn-outline-primary">
+                        ✏️ Redigera boken
+                    </a>
+                }
+
+
+                @* Låna / reservera *@
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    if (Model.Status == BookStatus.Available)
+                    {
+                        <form asp-controller="Loan" asp-action="Create" asp-route-isbn="@Model.ISBN" method="post" class="d-inline">
+                            <input type="hidden" name="isbn" value="@Model.ISBN" />
+                            <button type="submit" class="btn btn-success me-2"> Låna boken</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a asp-controller="Loan" asp-action="Create" asp-route-isbn="@Model.ISBN" class="btn btn-warning">
+                            ⏳ Reservera boken
+                        </a>
+                    }
+                }
+
                 <a asp-controller="Book" asp-action="Index" class="btn btn-secondary ms-2">
                     ← Tillbaka
                 </a>
