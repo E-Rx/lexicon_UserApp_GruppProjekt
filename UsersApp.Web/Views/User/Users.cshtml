@@ -14,11 +14,13 @@
         }
         else
         {
+            <h3>Dina lånade böcker</h3>
             <ul class="list-unstyled">
                 @foreach (var book in Model.LoanedBooks!)
                 {
+                    var late = DateTime.Now > book.DueDate;
                     <li>
-                        <a href="#" class="text-decoration-none text-dark">
+                        <a asp-controller="Loan" asp-action="Return" asp-route-isbn="@book.ISBN" class="text-decoration-none text-dark">
                             <div class="d-flex container-fluid">
                                 <div class="col-6">
                                     @book.Title
@@ -26,8 +28,8 @@
                                 <div class="col-6 text-end">
                                     @book.DueDate.ToString("yyyy-MM-dd")
                                 </div>
-                                <div class="col-6 text-end">
-                                    @(DateTime.Now > book.DueDate ? "Försenad" : $"{Math.Truncate((book.DueDate - DateTime.Now).TotalDays)} dagar kvar")
+                                <div class="col-6 text-end@(late ? " text-danger" : string.Empty)">
+                                    @(late ? "Försenad" : $"{Math.Truncate((book.DueDate - DateTime.Now).TotalDays)} dagar kvar")
                                 </div>
                             </div>
                         </a>
