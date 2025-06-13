@@ -7,13 +7,13 @@ namespace UsersApp.Domain.Entities
     public class Loan
     {
         [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public required Guid Id { get; set; } = Guid.NewGuid();
         [ForeignKey(nameof(Book))]
-        public string BookId { get; set; } = null!;
+        public required string ISBN { get; set; } = null!;
         [ForeignKey(nameof(LibraryUser))]
-        public Guid UserId { get; set; }
-        public DateTime LoanDate { get; set; }
-        public DateTime DueDate { get; set; }
+        public required string UserId { get; set; }
+        public required DateTime LoanDate { get; set; }
+        public required DateTime DueDate { get; set; }
         public DateTime? ReturnDate { get; set; } = null;
     }
 }

@@ -266,23 +266,23 @@ public class UserController(IUserService userService, ILoanService loanService) 
                         nameof(registerVM) + " är null"
                     );
 
-            UserDto userDto = new(
-                registerVM.UserName,
-                registerVM.DisplayName!,
-                registerVM.Email,
-                registerVM.FirstName,
-                registerVM.LastName
-            );
+            UserDto userDto = new
+                (
+                    registerVM.UserName,
+                    registerVM.DisplayName!,
+                    registerVM.Email,
+                    registerVM.FirstName,
+                    registerVM.LastName
+                );
 
             var result = await userService.CreateUserAsync(userDto, registerVM.Password);
 
             if (result.Succeeded)
                 result = await userService.SignInAsync(userDto.UserName, registerVM.Password);
 
-            else
-            {
+            else            
                 return RedirectToAction(nameof(Login));
-            }
+            
         }
 
         catch (Exception err)
