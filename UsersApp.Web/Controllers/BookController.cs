@@ -70,8 +70,7 @@ public class BookController(IBookService bookService) : Controller
                         nameof(registerBookVM) + " är null"
                     );           
 
-            BookDto bookDto = new()
-            (
+            BookDto bookDto = new (
                 registerBookVM.ISBN,
                 registerBookVM.Title,
                 registerBookVM.Author,

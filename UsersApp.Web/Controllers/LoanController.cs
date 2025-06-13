@@ -25,6 +25,6 @@ public class LoanController(ILoanService loanService) : Controller
             DueDate = DateTime.Now.AddDays(30) // Example: 30 days loan period
         });
 
-        return RedirectToRoute("/book"); // ToAction("Index", nameof(BookController));
+        return RedirectToAction("Index", nameof(BookController));
     }
 }
