@@ -5,9 +5,6 @@ namespace UsersApp.Terminal;
 
 public class ConsoleApp
 {
-
-    
-
     public static void Main()
     {
         
