@@ -173,7 +173,7 @@ public class BookController(IBookService bookService) : Controller
 
 
     [Authorize(Roles = "Admin")]
-    [HttpPost("details/delete")]
+    [HttpGet("details/delete")]
     public async Task<IActionResult> DeleteBook(string isbn)
     {
         if (string.IsNullOrEmpty(isbn))
