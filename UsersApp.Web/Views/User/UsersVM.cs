@@ -6,6 +6,6 @@ namespace UsersApp.Web.Views.User
     {
         public required string UserName { get; set; }
         public required string DisplayName { get; set; }       
-        public BookVM[]? LoanedBooks { get; set; }
+        public LoanVM[]? LoanedBooks { get; set; }
     }
 }

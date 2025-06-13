@@ -9,5 +9,6 @@ namespace UsersApp.Application.Interfaces.Loans
         Loan[] GetAll();
         Loan? GetById(Guid id);
         Task RemoveAsync(Loan loan);
+        Task<LoanDto[]> GetAllByUserIdAsync(Guid userId);
     }
 }

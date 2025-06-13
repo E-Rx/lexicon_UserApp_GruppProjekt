@@ -9,7 +9,7 @@ namespace UsersApp.Domain.Entities
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
         [ForeignKey(nameof(Book))]
-        public Guid BookId { get; set; }
+        public string BookId { get; set; } = null!;
         [ForeignKey(nameof(LibraryUser))]
         public Guid UserId { get; set; }
         public DateTime LoanDate { get; set; }
