@@ -61,6 +61,24 @@ namespace UsersApp.Infrastructure.Persistence.Repositories
             return userDtos;
         }
 
+        public async Task<AdminUserDto[]> GetAllWithId()
+        {
+            ApplicationUser[] users = await context.Users.ToArrayAsync();
+            AdminUserDto[] adminUserDtos = [.. users.Select(u => new AdminUserDto
+                (
+                    u.Id,
+                    u.UserName!,
+                    u.LibraryUser.DisplayName!,
+                    u.Email!,
+                    u.FirstName!,
+                    u.LastName!,
+                    u.LastLogin!,
+                    u.DateOfCreation!
+                ))];
+
+            return adminUserDtos;
+        }
+
         public async Task EditAsync(string id, UserDto userProfileDto)
         {           
             ApplicationUser user = await GetUserById(id);

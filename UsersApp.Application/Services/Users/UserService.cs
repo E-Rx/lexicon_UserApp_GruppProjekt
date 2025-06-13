@@ -20,6 +20,7 @@ public class UserService(IIdentityUserService identityUserService, IUnitOfWork u
     public Task<bool> IsAdmin(string id) => identityUserService.IsAdmin(id);
     public async Task<UserDto> GetUserDtoById(string id) => await unitOfWork.UserRepository.GetUserDtoById(id);
     public async Task<UserDto[]> GetAll() => await unitOfWork.UserRepository.GetAll();
+    public async Task<AdminUserDto[]> GetAllWithId() => await unitOfWork.UserRepository.GetAllWithId();
     public async Task EditAsync(string id, UserDto userProfileDto)
     {
         await unitOfWork.UserRepository.EditAsync(id, userProfileDto);

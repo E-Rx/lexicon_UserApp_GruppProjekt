@@ -10,6 +10,7 @@ public interface IUserService
     Task<bool> IsAdmin(string id);
     Task<UserDto> GetUserDtoById(string id);
     Task<UserDto[]> GetAll();
+    Task<AdminUserDto[]> GetAllWithId();
     Task EditAsync(string id, UserDto userProfileDto);
     Task RemoveAsync(string id);
     Task UpdateLastLogin(string id);

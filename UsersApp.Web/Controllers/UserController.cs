@@ -27,7 +27,7 @@ public class UserController(IUserService userService, ILoanService loanService) 
 
     [HttpGet("users")]
     public async Task<IActionResult> Users()
-        {
+    {
         try
         {
             string? user = User.FindFirstValue("UserId");
@@ -71,12 +71,51 @@ public class UserController(IUserService userService, ILoanService loanService) 
 
         return View();
     }
+
+
+    [Authorize(Roles = "Admin")]
     [HttpGet("admin")]
-    public async Task<IActionResult> Admin (AdminVM adminVM)
+    public async Task<IActionResult> Admin()
     {
+        try
+        {
+            string? user = User.FindFirstValue("UserId");
+            if (user != null)
+            {
+                UserDto userDto = await userService.GetUserDtoById(user);
+                if (userDto == null)
+                    throw new ArgumentNullException
+                    (
+                        nameof(userDto),
+                        nameof(userDto) + " returnerade null"
+                    );
+
+                AdminUserDto[] adminUserDtos = await userService.GetAllWithId();
+  
+                if (adminUserDtos != null)
+                    return View(adminUserDtos);
+            }
+
+            else
+            {
+                throw new ArgumentNullException
+                (
+                    nameof(user),
+                    nameof(user) + " returnerade null"
+                );
+            }
+        }
+
+        catch (Exception err)
+        {
+            Console.WriteLine("Error: " + err);
+        }
+
+        return View();
+
 
     }
-    
+
 
     //[HttpPost("/users/{Id}")]
     //public async Task<IActionResult> Users(UsersVM usersVM)
@@ -151,10 +190,10 @@ public class UserController(IUserService userService, ILoanService loanService) 
         try
         {
             string? user = User.FindFirstValue("UserId");
-            
+
             if (user != null)
             {
-                
+
                 UserDto userDto = new UserDto
                     (
                         userDetails.UserName,
@@ -164,7 +203,7 @@ public class UserController(IUserService userService, ILoanService loanService) 
                         userDetails.LastName
                     );
 
-                await userService.EditAsync(user, userDto);            
+                await userService.EditAsync(user, userDto);
             }
         }
 
@@ -212,10 +251,10 @@ public class UserController(IUserService userService, ILoanService loanService) 
         }
 
         string? userId = User.FindFirstValue("UserId");
-        
+
         if (userId != null && await userService.IsAdmin(userId))
             return RedirectToAction(nameof(Admin));
-        
+
         return RedirectToAction(nameof(Users));
     }
 
@@ -257,7 +296,7 @@ public class UserController(IUserService userService, ILoanService loanService) 
                 registerVM.DisplayName!,
                 registerVM.Email,
                 registerVM.FirstName,
-                registerVM.LastName               
+                registerVM.LastName
             );
 
             var result = await userService.CreateUserAsync(userDto, registerVM.Password);
