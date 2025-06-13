@@ -45,10 +45,10 @@ public class LoanRepository(ApplicationContext context) : ILoanRepository
                 b => b.ISBN,
                 (lj, b) => new
                 {
-                    Id = lj.loan.Id,
-                    ISBN = b.ISBN,
-                    Title = b.Title,
-                    DueDate = lj.loan.DueDate
+                    lj.loan.Id,
+                    b.ISBN,
+                    b.Title,
+                    lj.loan.DueDate
                 }
             )
             .OrderBy(l => l.DueDate)

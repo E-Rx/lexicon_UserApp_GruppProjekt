@@ -2,4 +2,4 @@
 
 namespace UsersApp.Application.Dtos;
 
-public record BookDto(string isbn, string title, string author, BookStatus status, BookCondition condition, BookGenre genre);
+public record BookDto(string ISBN, string Title, string Author, BookStatus Status, BookCondition Condition, BookGenre Genre);

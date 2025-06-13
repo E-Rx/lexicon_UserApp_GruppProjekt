@@ -40,15 +40,14 @@ public class UserController(IUserService userService, ILoanService loanService) 
                 {
                     UserName = userDto.UserName,
                     DisplayName = userDto.DisplayName,
-                    LoanedBooks = loanDtos
+                    LoanedBooks = [.. loanDtos
                     .Select(l => new LoanVM
                     {
-                        id = l.id,
+                        id = l.Id,
                         ISBN = l.ISBN,
                         Title = l.Title,
-                        DueDate = l.dueDate
-                    })
-                    .ToArray()
+                        DueDate = l.DueDate
+                    })]
                 };
 
                 return View(usersVM);
@@ -194,8 +193,7 @@ public class UserController(IUserService userService, ILoanService loanService) 
             if (user != null)
             {
 
-                UserDto userDto = new UserDto
-                    (
+                UserDto userDto = new                    (
                         userDetails.UserName,
                         userDetails.DisplayName!,
                         userDetails.Email,
@@ -290,8 +288,7 @@ public class UserController(IUserService userService, ILoanService loanService) 
                         nameof(registerVM) + " är null"
                     );
 
-            UserDto userDto = new UserDto
-            (
+            UserDto userDto = new            (
                 registerVM.UserName,
                 registerVM.DisplayName!,
                 registerVM.Email,

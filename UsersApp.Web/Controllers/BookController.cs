@@ -19,16 +19,15 @@ public class BookController(IBookService bookService) : Controller
     [HttpGet("")]
     public IActionResult Index()
     {
-        BookVM[] bookVM = bookService
+        BookVM[] bookVM = [.. bookService
             .GetAll()
-            .OrderBy(b => b.title)
+            .OrderBy(b => b.Title)
             .Select(b => new BookVM
             {
-                Isbn = b.isbn,
-                Title = b.title,
-                Author = b.author
-            })
-            .ToArray();
+                Isbn = b.ISBN,
+                Title = b.Title,
+                Author = b.Author
+            })];
         return View(bookVM);
     }
 
@@ -39,14 +38,14 @@ public class BookController(IBookService bookService) : Controller
         if (book is null)
             return NotFound($"Boken med ISBN {Isbn} hittades inte.");
 
-        DetailsVM model = new DetailsVM
+        DetailsVM model = new()
         {
-            ISBN = book?.isbn ?? string.Empty,
-            Title = book?.title ?? string.Empty,
-            Author = book?.author ?? string.Empty,
-            Status = book?.status ?? BookStatus.Available,
-            Condition = book?.condition ?? BookCondition.New,
-            Genre = book?.genre ?? BookGenre.Fiction
+            ISBN = book?.ISBN ?? string.Empty,
+            Title = book?.Title ?? string.Empty,
+            Author = book?.Author ?? string.Empty,
+            Status = book?.Status ?? BookStatus.Available,
+            Condition = book?.Condition ?? BookCondition.New,
+            Genre = book?.Genre ?? BookGenre.Fiction
         };
         return View(model);
     }
@@ -71,7 +70,7 @@ public class BookController(IBookService bookService) : Controller
                         nameof(registerBookVM) + " är null"
                     );           
 
-            BookDto bookDto = new BookDto
+            BookDto bookDto = new()
             (
                 registerBookVM.ISBN,
                 registerBookVM.Title,
@@ -103,12 +102,12 @@ public class BookController(IBookService bookService) : Controller
             {               
                 EditBookVM editBookVM = new ()
                 {
-                    ISBN = bookDto.isbn,
-                    Title = bookDto.title,
-                    Author = bookDto.author,
-                    Status = bookDto.status,
-                    Condition = bookDto.condition,
-                    Genre = bookDto.genre
+                    ISBN = bookDto.ISBN,
+                    Title = bookDto.Title,
+                    Author = bookDto.Author,
+                    Status = bookDto.Status,
+                    Condition = bookDto.Condition,
+                    Genre = bookDto.Genre
                 };
 
                 return View(editBookVM);

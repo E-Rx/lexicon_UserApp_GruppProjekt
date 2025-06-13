@@ -12,18 +12,18 @@ public class BookRepository(ApplicationContext context) : IBookRepository
     {
         Book book = new()
         {
-            ISBN = bookDto.isbn,
-            Title = bookDto.title,
-            Author = bookDto.author,
-            Status = bookDto.status,
-            Condition = bookDto.condition,
-            Genre = bookDto.genre
+            ISBN = bookDto.ISBN,
+            Title = bookDto.Title,
+            Author = bookDto.Author,
+            Status = bookDto.Status,
+            Condition = bookDto.Condition,
+            Genre = bookDto.Genre
         };
 
-        await context.Books!.AddAsync(book);   
+        await context.Books!.AddAsync(book);
     }
 
-    public BookDto[] GetAll() => context.Books!
+    public BookDto[] GetAll() => [.. context.Books!
         .OrderBy(b => b.Title)
         .Select(b => new BookDto
         (
@@ -33,8 +33,7 @@ public class BookRepository(ApplicationContext context) : IBookRepository
             b.Status,
             b.Condition,
             b.Genre
-        ))
-        .ToArray();
+        )) ];
 
     private async Task <Book> GetBookById(string isbn)
     {
@@ -73,18 +72,18 @@ public class BookRepository(ApplicationContext context) : IBookRepository
 
     public async Task EditAsync(BookDto bookDto)
     {
-        Book? book = await GetBookById(bookDto.isbn) ?? throw new ArgumentNullException
+        Book? book = await GetBookById(bookDto.ISBN) ?? throw new ArgumentNullException
         (
             nameof(book) + "returnerade null",
             nameof(book)
         ); 
 
-        book!.ISBN = bookDto.isbn;
-        book.Title = bookDto.title;
-        book.Author = bookDto.author;
-        book.Status = bookDto.status;
-        book.Condition = bookDto.condition;
-        book.Genre = bookDto.genre;
+        book!.ISBN = bookDto.ISBN;
+        book.Title = bookDto.Title;
+        book.Author = bookDto.Author;
+        book.Status = bookDto.Status;
+        book.Condition = bookDto.Condition;
+        book.Genre = bookDto.Genre;
         
         var result = context.Books!.Update(book);
 
