@@ -26,26 +26,25 @@ public class LoanRepository(ApplicationContext context) : ILoanRepository
         await context.SaveChangesAsync();
     }
 
-    public async Task<LoanDto[]> GetAllByUserIdAsync(Guid userId)
-    {
-        return await context.Users!
-            .Where(u => u.LibraryUserId == userId)
+    public async Task<LoanDto[]> GetAllByUserIdAsync(Guid userId) =>
+    await context.Users!
+            .Where(u => u.Id == userId.ToString())
             .Join(
                 context.Loans!,
-                u => u.LibraryUserId,
-                l => l.UserId,
+                u => u.Id,
+                l => l.UserId.ToString(),
                 (user, loan) => new { user, loan }
             )
             .Join(
                 context.Books!,
                 lj => lj.loan.BookId,
                 b => b.ISBN,
-                (lj, b) => new 
-                { 
-                    Id = lj.loan.Id, 
-                    ISBN = b.ISBN, 
-                    Title = b.Title, 
-                    DueDate = lj.loan.DueDate 
+                (lj, b) => new
+                {
+                    Id = lj.loan.Id,
+                    ISBN = b.ISBN,
+                    Title = b.Title,
+                    DueDate = lj.loan.DueDate
                 }
             )
             .OrderBy(l => l.DueDate)
@@ -55,7 +54,6 @@ public class LoanRepository(ApplicationContext context) : ILoanRepository
                 l.ISBN,
                 l.Title,
                 l.DueDate
-            ))
-            .ToArrayAsync();
-    }
+            )).ToArrayAsync();
 }
+
