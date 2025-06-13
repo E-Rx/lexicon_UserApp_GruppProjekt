@@ -48,7 +48,7 @@
                 {
                     if (Model.Status == BookStatus.Available)
                     {
-                        <form asp-controller="Loan" asp-action="Create" asp-route-isbn="@Model.ISBN" method="post" class="d-inline">
+                        <form asp-controller="Loan" asp-action="Create" method="post" class="d-inline">
                             <input type="hidden" name="isbn" value="@Model.ISBN" />
                             <button type="submit" class="btn btn-success me-2"> Låna boken</button>
                         </form>

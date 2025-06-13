@@ -26,6 +26,9 @@
                                 <div class="col-6 text-end">
                                     @book.DueDate.ToString("yyyy-MM-dd")
                                 </div>
+                                <div class="col-6 text-end">
+                                    @(DateTime.Now > book.DueDate ? "Försenad" : $"{Math.Truncate((book.DueDate - DateTime.Now).TotalDays)} dagar kvar")
+                                </div>
                             </div>
                         </a>
                     </li>

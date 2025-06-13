@@ -2,6 +2,7 @@
 using UsersApp.Application.Dtos;
 using UsersApp.Application.Interfaces.Loans;
 using UsersApp.Domain.Entities;
+using UsersApp.Domain.Enums.Entities;
 
 namespace UsersApp.Infrastructure.Persistence.Repositories;
 
@@ -10,6 +11,9 @@ public class LoanRepository(ApplicationContext context) : ILoanRepository
     public async Task AddAsync(Loan loan)
     {
         await context.AddAsync(loan);
+        await context.Books!
+            .Where(b => b.ISBN == loan.BookId)
+            .ExecuteUpdateAsync(b => b.SetProperty(b => b.Status, BookStatus.Loaned));
         await context.SaveChangesAsync(); // TODO - Add UnitofWork    
     }
 
