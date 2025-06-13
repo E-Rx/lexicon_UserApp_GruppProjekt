@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.InteropServices;
 using System.Security.Claims;
 using UsersApp.Application.Interfaces.Loans;
 using UsersApp.Domain.Entities;
@@ -25,6 +24,6 @@ public class LoanController(ILoanService loanService) : Controller
             DueDate = DateTime.Now.AddDays(30) // Example: 30 days loan period
         });
 
-        return RedirectToAction("Index", nameof(BookController));
+        return RedirectToAction("Index", "Book");
     }
 }
