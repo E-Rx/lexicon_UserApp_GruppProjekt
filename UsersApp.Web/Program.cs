@@ -50,10 +50,8 @@ public class Program
 
         var app = builder.Build();
 
-        using (var scope = app.Services.CreateScope())
-        {
-            
-        }
+        using var scope = app.Services.CreateScope();
+        await IdentitySeeder.SeedAsync(scope.ServiceProvider);
 
 
         app.UseRouting();

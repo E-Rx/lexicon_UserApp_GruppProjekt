@@ -34,6 +34,8 @@ public class IdentityUserService
 
         var result = await userManager.CreateAsync(newUser, password);
 
+        await userManager.AddToRoleAsync(newUser, "User");
+
         await userManager.AddClaimsAsync
             (
                 newUser,

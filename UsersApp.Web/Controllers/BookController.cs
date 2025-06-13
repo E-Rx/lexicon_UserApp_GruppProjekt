@@ -51,10 +51,11 @@ public class BookController(IBookService bookService) : Controller
         return View(model);
     }
 
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpGet("register")]
     public IActionResult RegisterBook() => View();
 
+    [Authorize(Roles = "Admin")]
     [HttpPost("register")]
     public async Task<IActionResult> RegisterBook(RegisterBookVM registerBookVM)
     {
@@ -91,7 +92,7 @@ public class BookController(IBookService bookService) : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpGet("details/edit")]
     public async Task<IActionResult> EditBook(string isbn)
     {
@@ -133,7 +134,7 @@ public class BookController(IBookService bookService) : Controller
         return View();
     }
 
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpPost("details/edit")]
     public async Task<IActionResult> EditBook(EditBookVM editBookVM)
     {
@@ -171,7 +172,7 @@ public class BookController(IBookService bookService) : Controller
     }
 
 
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [HttpPost("details/delete")]
     public async Task<IActionResult> DeleteBook(string isbn)
     {

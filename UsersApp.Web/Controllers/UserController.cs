@@ -25,8 +25,7 @@ public class UserController(IUserService userService) : Controller
 
     [HttpGet("users")]
     public async Task<IActionResult> Users()
-    {
-
+        {
         try
         {
             string? user = User.FindFirstValue("UserId");

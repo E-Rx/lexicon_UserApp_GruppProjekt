@@ -20,13 +20,13 @@
                 <dd class="col-sm-9">@Model.Author</dd>
 
                 <dt class="col-sm-3">Status</dt>
-                <dd class="col-sm-9">@Model.Status</dd>
+                <dd class="col-sm-9">@BookStatusExtensions.GetSwedishName(@Model.Status)</dd>
 
                 <dt class="col-sm-3">Skick</dt>
-                <dd class="col-sm-9">@Model.Condition</dd>
+                <dd class="col-sm-9">@BookConditionExtensions.GetSwedishName(@Model.Condition)</dd>
 
                 <dt class="col-sm-3">Genre</dt>
-                <dd class="col-sm-9">@Model.Genre</dd>
+                <dd class="col-sm-9">@BookGenreExtensions.GetSwedishName(@Model.Genre)</dd>
             </dl>
 
             <div class="mt-4 text-end">
@@ -36,6 +36,9 @@
                 {
                     <a asp-controller="Book" asp-action="EditBook" asp-route-isbn="@Model.ISBN" class="btn btn-outline-primary">
                         ✏️ Redigera boken
+                    </a>
+                    <a asp-controller="Book" asp-action="DeleteBook" asp-route-isbn="@Model.ISBN" class="btn btn-outline-primary">
+                       ❌ Ta bort boken 
                     </a>
                 }
 
