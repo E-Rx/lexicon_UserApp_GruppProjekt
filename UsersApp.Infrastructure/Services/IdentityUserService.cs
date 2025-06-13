@@ -16,14 +16,7 @@ public class IdentityUserService
 ) : IIdentityUserService
 
 {
-
-    public async Task CreateRoles()
-    {
-        if (!await roleManager.RoleExistsAsync("User"))
-            await roleManager.CreateAsync(new IdentityRole("User"));
-        if (!await roleManager.RoleExistsAsync("Admin"))
-            await roleManager.CreateAsync(new IdentityRole("Admin"));
-    }
+   
     public async Task<ResultDto> CreateUserAsync(UserDto user, string password)
     {
         LibraryUser libraryUser = new() { DisplayName = user.DisplayName };

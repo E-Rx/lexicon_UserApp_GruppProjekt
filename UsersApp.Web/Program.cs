@@ -29,6 +29,7 @@ public class Program
         builder.Services.AddDbContext<ApplicationContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationContext>()
             .AddDefaultTokenProviders();
         
@@ -49,10 +50,10 @@ public class Program
 
         var app = builder.Build();
 
-        //using (var scope = app.Services.CreateScope())
-        //{
-
-        //}
+        using (var scope = app.Services.CreateScope())
+        {
+            
+        }
 
 
         app.UseRouting();
