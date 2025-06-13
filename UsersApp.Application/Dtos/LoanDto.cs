@@ -2,4 +2,4 @@
 
 namespace UsersApp.Application.Dtos;
 
-public record LoanDto(Guid id, Guid bookId, DateTime dueDate);
+public record LoanDto(Guid id, string ISBN, string Title, DateTime dueDate);
