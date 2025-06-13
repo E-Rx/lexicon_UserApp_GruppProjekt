@@ -17,9 +17,10 @@ public class UserService(IIdentityUserService identityUserService, IUnitOfWork u
         => await identityUserService.SignInAsync(userName, password);
     public async Task SignOutAsync()
         => await identityUserService.SignOutAsync();
-
+    public Task<bool> IsAdmin(string id) => identityUserService.IsAdmin(id);
     public async Task<UserDto> GetUserDtoById(string id) => await unitOfWork.UserRepository.GetUserDtoById(id);
     public async Task<UserDto[]> GetAll() => await unitOfWork.UserRepository.GetAll();
+    public async Task<AdminUserDto[]> GetAllWithId() => await unitOfWork.UserRepository.GetAllWithId();
     public async Task EditAsync(string id, UserDto userProfileDto)
     {
         await unitOfWork.UserRepository.EditAsync(id, userProfileDto);
@@ -36,6 +37,8 @@ public class UserService(IIdentityUserService identityUserService, IUnitOfWork u
         await unitOfWork.UserRepository.UpdateLastLogin(id);
         await unitOfWork.Save();
     }
+
+
 
     // Add role to user
     //public async Task AddToRoleAsync(string userName, string role)

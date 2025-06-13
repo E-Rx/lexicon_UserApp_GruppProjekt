@@ -1,0 +1,24 @@
+﻿@using UsersApp.Application.Dtos;
+@using UsersApp.Infrastructure.Persistence;
+@model AdminVM
+
+@{
+    ViewBag.Title = "Welcome Admin";
+}
+
+<h2>Users:</h2>
+
+<ol>
+    @foreach (AdminUserDto user in Model.Users!)
+    {
+        <li>
+            <h3>Id: @user.Id</h3>
+            <h3>Username: @user.UserName</h3>
+            <h3>Email: @user.Email</h3>
+            <h3>Firstname: @user.FirstName</h3>
+            <h3>Lastname: @user.LastName</h3>
+            <h3>Last login: @user.LastLogin</h3>
+            <h3>Date of Creation: @user.DateOfCreation</h3>
+        </li>
+    }
+</ol>

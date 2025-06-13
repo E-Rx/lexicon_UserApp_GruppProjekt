@@ -59,5 +59,21 @@ public class IdentityUserService
         await loginManager.SignOutAsync();
         
     }
+
+    public async Task<bool> IsAdmin(string id)
+    {
+        bool isAdmin = false;
+        ApplicationUser? user = await userManager.FindByIdAsync(id);
+
+        if (user != null)
+        {
+            var result = await userManager.IsInRoleAsync(user, "Admin");
+
+            isAdmin = result;
+
+        }
+
+        return isAdmin;
+    }
     
 }
