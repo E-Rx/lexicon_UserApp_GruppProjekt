@@ -12,7 +12,7 @@ public class LoanRepository(ApplicationContext context) : ILoanRepository
     {
         await context.AddAsync(loan);
         await context.Books!
-            .Where(b => b.ISBN == loan.BookId)
+            .Where(b => b.ISBN == loan.ISBN)
             .ExecuteUpdateAsync(b => b.SetProperty(b => b.Status, BookStatus.Loaned));
         await context.SaveChangesAsync(); // TODO - Add UnitofWork    
     }
@@ -27,6 +27,9 @@ public class LoanRepository(ApplicationContext context) : ILoanRepository
     public async Task RemoveAsync(Loan loan)
     {
         context.Remove(loan);
+        await context.Books!
+            .Where(b => b.ISBN == loan.ISBN)
+            .ExecuteUpdateAsync(b => b.SetProperty(b => b.Status, BookStatus.Available));
         await context.SaveChangesAsync();
     }
 
@@ -41,7 +44,7 @@ public class LoanRepository(ApplicationContext context) : ILoanRepository
             )
             .Join(
                 context.Books!,
-                lj => lj.loan.BookId,
+                lj => lj.loan.ISBN,
                 b => b.ISBN,
                 (lj, b) => new
                 {
