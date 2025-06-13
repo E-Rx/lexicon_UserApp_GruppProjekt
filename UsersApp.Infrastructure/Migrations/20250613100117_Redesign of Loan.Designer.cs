@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UsersApp.Infrastructure.Persistence;
 
@@ -11,9 +12,11 @@ using UsersApp.Infrastructure.Persistence;
 namespace UsersApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20250613100117_Redesign of Loan")]
+    partial class RedesignofLoan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,53 +183,6 @@ namespace UsersApp.Infrastructure.Migrations
                     b.HasKey("ISBN");
 
                     b.ToTable("Books");
-
-                    b.HasData(
-                        new
-                        {
-                            ISBN = "9780140449136",
-                            Author = "Fjodor Dostojevskij",
-                            Condition = 1,
-                            Genre = 1,
-                            Status = 2,
-                            Title = "Brott och straff"
-                        },
-                        new
-                        {
-                            ISBN = "9780143128540",
-                            Author = "George Orwell",
-                            Condition = 0,
-                            Genre = 3,
-                            Status = 0,
-                            Title = "1984"
-                        },
-                        new
-                        {
-                            ISBN = "9780451524935",
-                            Author = "Jane Austen",
-                            Condition = 2,
-                            Genre = 4,
-                            Status = 2,
-                            Title = "Stolthet och fördom"
-                        },
-                        new
-                        {
-                            ISBN = "9780307277671",
-                            Author = "Yuval Noah Harari",
-                            Condition = 0,
-                            Genre = 9,
-                            Status = 0,
-                            Title = "Sapiens: En kort historik över mänskligheten"
-                        },
-                        new
-                        {
-                            ISBN = "9780062315007",
-                            Author = "Ernest Hemingway",
-                            Condition = 1,
-                            Genre = 0,
-                            Status = 0,
-                            Title = "Den gamle och havet"
-                        });
                 });
 
             modelBuilder.Entity("UsersApp.Domain.Entities.LibraryUser", b =>
