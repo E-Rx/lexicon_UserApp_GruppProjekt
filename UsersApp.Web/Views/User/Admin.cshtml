@@ -1,31 +1,27 @@
-﻿@using UsersApp.Application.Dtos;
-@model AdminVM
+﻿@using UsersApp.Application.Dtos;  
+@model AdminVM  
 
-@{
-    ViewBag.Title = "Adminpanel";
-    var swedishCulture = new CultureInfo("sv-SE");
-}
+@{  
+    ViewBag.Title = "Adminpanel";  
+}  
 
-<div class="container my-5">
-    <h2 class="mb-4">👤 Adminpanel – Användarlista</h2>
+<div class="container my-5">  
+    <h2 class="mb-4">👤 Adminpanel – Användarlista</h2>  
 
-    <div class="list-group">
-        @foreach (AdminUserDto user in Model.Users!)
-        {
-            <div class="list-group-item mb-3">
-                <h5 class="mb-2">@user.UserName</h5>
-                <ul class="list-unstyled mb-0">
-                    <li><strong>ID:</strong> @user.Id</li>
-                    <li><strong>E-post:</strong> @user.Email</li>
-                    <li><strong>Förnamn:</strong> @user.FirstName</li>
-                    <li><strong>Efternamn:</strong> @user.LastName</li>
-                    <li>
-                        <strong>Senaste inloggning:</strong>
-                        @(user.LastLogin.HasValue? user.LastLogin.Value.ToString("f", swedishCulture) : "Aldrig")
-                    </li>
-                    <li><strong>Skapad:</strong> @user.DateOfCreation.ToString("f", swedishCulture)</li>
-                </ul>
-            </div>
-        }
-    </div>
+    <div class="list-group">  
+        @foreach (AdminUserDto user in Model.Users!)  
+        {  
+            <div class="list-group-item mb-3">  
+                <h5 class="mb-2">@user.UserName</h5>  
+                <ul class="list-unstyled mb-0">  
+                    <li><strong>ID:</strong> @user.Id</li>  
+                    <li><strong>E-post:</strong> @user.Email</li>  
+                    <li><strong>Förnamn:</strong> @user.FirstName</li>  
+                    <li><strong>Efternamn:</strong> @user.LastName</li>  
+                    <li><strong>Senaste inloggning:</strong> @user.LastLogin</li>  
+                    <li><strong>Skapad:</strong> @user.DateOfCreation</li>  
+                </ul>  
+            </div>  
+        }  
+    </div>  
 </div>
