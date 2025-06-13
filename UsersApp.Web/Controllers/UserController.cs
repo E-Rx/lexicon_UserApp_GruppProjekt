@@ -1,14 +1,9 @@
-﻿using Azure.Identity;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Claims;
 using UsersApp.Application.Dtos;
-using UsersApp.Application.Interfaces;
-using UsersApp.Application.Interfaces.Books;
 using UsersApp.Application.Interfaces.Loans;
 using UsersApp.Application.Interfaces.Users;
-using UsersApp.Application.Services.Users;
 using UsersApp.Web.Views.User;
 
 namespace UsersApp.Web.Controllers;
@@ -91,16 +86,15 @@ public class UserController(IUserService userService, ILoanService loanService) 
 
                 AdminUserDto[] adminUserDtos = await userService.GetAllWithId();
 
-                if (adminUserDtos != null)            
+                if (adminUserDtos != null)
                     return View
                         (
-                            new AdminVM 
+                            new AdminVM
                             {
                                 UserName = userDto.DisplayName,
                                 Users = adminUserDtos
-
                             }
-                        );   
+                        );
             }
 
             else
@@ -120,31 +114,7 @@ public class UserController(IUserService userService, ILoanService loanService) 
 
         return View();
 
-
     }
-
-
-    //[HttpPost("/users/{Id}")]
-    //public async Task<IActionResult> Users(UsersVM usersVM)
-    //{
-    //    if (!ModelState.IsValid)
-    //        return View();
-
-    //    try
-    //    {
-    //        //var model = userService.Get
-
-    //    }
-
-    //    catch
-    //    {
-
-
-    //    }
-    //    return RedirectToAction(nameof(Users));
-    //}
-
-    //////////////////////////////////////////////////////
 
     [HttpGet("users/details")]
     public async Task<IActionResult> UserDetails()
@@ -184,7 +154,6 @@ public class UserController(IUserService userService, ILoanService loanService) 
             Console.WriteLine("Error: " + err);
         }
 
-
         return View();
     }
 
@@ -201,7 +170,8 @@ public class UserController(IUserService userService, ILoanService loanService) 
             if (user != null)
             {
 
-                UserDto userDto = new                    (
+                UserDto userDto = new
+                    (
                         userDetails.UserName,
                         userDetails.DisplayName!,
                         userDetails.Email,
@@ -272,7 +242,7 @@ public class UserController(IUserService userService, ILoanService loanService) 
     }
 
     //////////////////////////////////////////////////////
-    ///
+    
     [AllowAnonymous]
     [HttpGet("register")]
     public IActionResult Register()
@@ -296,7 +266,7 @@ public class UserController(IUserService userService, ILoanService loanService) 
                         nameof(registerVM) + " är null"
                     );
 
-            UserDto userDto = new            (
+            UserDto userDto = new(
                 registerVM.UserName,
                 registerVM.DisplayName!,
                 registerVM.Email,
@@ -313,8 +283,6 @@ public class UserController(IUserService userService, ILoanService loanService) 
             {
                 return RedirectToAction(nameof(Login));
             }
-
-
         }
 
         catch (Exception err)
