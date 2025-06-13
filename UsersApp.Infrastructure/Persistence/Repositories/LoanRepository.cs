@@ -27,6 +27,9 @@ public class LoanRepository(ApplicationContext context) : ILoanRepository
     public async Task RemoveAsync(Loan loan)
     {
         context.Remove(loan);
+        await context.Books!
+            .Where(b => b.ISBN == loan.BookId)
+            .ExecuteUpdateAsync(b => b.SetProperty(b => b.Status, BookStatus.Available));
         await context.SaveChangesAsync();
     }
 

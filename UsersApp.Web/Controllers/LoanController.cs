@@ -11,7 +11,6 @@ namespace UsersApp.Web.Controllers;
 [Route("/loan")]
 public class LoanController(ILoanService loanService) : Controller
 {
-    [Authorize]
     [HttpPost("Create")]
     public async Task<IActionResult> CreateAsync(CreateVM vm)
     {
@@ -25,5 +24,24 @@ public class LoanController(ILoanService loanService) : Controller
         });
 
         return RedirectToAction("Index", "Book");
+    }
+
+    [HttpGet("Return")]
+    public async Task<IActionResult> ReturnAsync(string ISBN)
+    {
+        var loan = (await loanService.GetAllByUserIdAsync(Guid.Parse(User.FindFirstValue("UserId")!)))
+            .SingleOrDefault(l => l.ISBN == ISBN);
+        if (loan != null)
+        {
+            Loan l = new()
+            {
+                Id = loan?.Id ?? Guid.Empty,
+                BookId = loan?.ISBN ?? string.Empty,
+                UserId = Guid.Parse(User.FindFirstValue("UserId") ?? string.Empty),
+                DueDate = loan?.DueDate ?? DateTime.MinValue
+            };
+            await loanService.RemoveAsync(l);
+        }
+        return RedirectToAction("Users", "User");
     }
 }
