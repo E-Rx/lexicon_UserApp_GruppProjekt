@@ -33,7 +33,6 @@ public class Program
             .AddEntityFrameworkStores<ApplicationContext>()
             .AddDefaultTokenProviders();
         
-        
         // Register the identity user service
         builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         builder.Services.AddScoped<IUserService, UserService>();
@@ -44,9 +43,6 @@ public class Program
         builder.Services.AddControllersWithViews();
 
         builder.Services.ConfigureApplicationCookie(o => o.LoginPath = "/login");
-
-
-
 
         var app = builder.Build();
 
