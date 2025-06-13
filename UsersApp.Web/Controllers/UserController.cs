@@ -60,6 +60,11 @@ public class UserController(IUserService userService) : Controller
 
         return View();
     }
+    [HttpGet("admin")]
+    public async Task<IActionResult> Admin (AdminVM adminVM)
+    {
+
+    }
     
 
     //[HttpPost("/users/{Id}")]
@@ -135,8 +140,10 @@ public class UserController(IUserService userService) : Controller
         try
         {
             string? user = User.FindFirstValue("UserId");
+            
             if (user != null)
             {
+                
                 UserDto userDto = new UserDto
                     (
                         userDetails.UserName,
@@ -193,6 +200,11 @@ public class UserController(IUserService userService) : Controller
             Console.WriteLine("Error: " + err);
         }
 
+        string? userId = User.FindFirstValue("UserId");
+        
+        if (userId != null && await userService.IsAdmin(userId))
+            return RedirectToAction(nameof(Admin));
+        
         return RedirectToAction(nameof(Users));
     }
 

@@ -1,0 +1,22 @@
+﻿@using UsersApp.Infrastructure.Persistence;
+@model AdminVM
+
+@{
+    ViewBag.Title = "Welcome Admin";
+}
+
+
+<h2>Users:</h2>
+
+<ol>
+    @foreach (ApplicationUser user in Model.Users)
+    {
+        <li>
+            <h3>@user.Id</h3>
+            <h3>@user.UserName</h3>
+            <h3>@user.Email</h3>
+            <h3>@user.FirstName</h3>
+            <h3>@user.LastName</h3>
+        </li>
+    }
+</ol>
