@@ -91,9 +91,17 @@ public class UserController(IUserService userService, ILoanService loanService) 
                     );
 
                 AdminUserDto[] adminUserDtos = await userService.GetAllWithId();
-  
-                if (adminUserDtos != null)
-                    return View(adminUserDtos);
+
+                if (adminUserDtos != null)            
+                    return View
+                        (
+                            new AdminVM 
+                            {
+                                UserName = userDto.DisplayName,
+                                Users = adminUserDtos
+
+                            }
+                        );   
             }
 
             else
