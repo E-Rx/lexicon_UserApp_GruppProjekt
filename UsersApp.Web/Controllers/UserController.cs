@@ -35,13 +35,21 @@ public class UserController(IUserService userService, ILoanService loanService) 
             if (user != null)
             {
                 UserDto userDto = await userService.GetUserDtoById(user);
-                BookDto[] bookDto = await loanService.GetAllByUserIdAsync(Guid.Parse(user));
+                LoanDto[] loanDtos = await loanService.GetAllByUserIdAsync(Guid.Parse(user));
 
                 UsersVM usersVM = new()
                 {
                     UserName = userDto.UserName,
                     DisplayName = userDto.DisplayName,
-                    LoanedBooks = []
+                    LoanedBooks = loanDtos
+                    .Select(l => new LoanVM
+                    {
+                        id = l.id,
+                        ISBN = l.ISBN,
+                        Title = l.Title,
+                        DueDate = l.dueDate
+                    })
+                    .ToArray()
                 };
 
                 return View(usersVM);

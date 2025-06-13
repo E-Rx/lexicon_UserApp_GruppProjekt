@@ -28,20 +28,33 @@ public class LoanRepository(ApplicationContext context) : ILoanRepository
 
     public async Task<LoanDto[]> GetAllByUserIdAsync(Guid userId)
     {
-        return await context.Loans!
-            .Include(l => context.Books)
-            .Where(l => l.UserId == userId)
+        return await context.Users!
+            .Where(u => u.LibraryUserId == userId)
+            .Join(
+                context.Loans!,
+                u => u.LibraryUserId,
+                l => l.UserId,
+                (user, loan) => new { user, loan }
+            )
+            .Join(
+                context.Books!,
+                lj => lj.loan.BookId,
+                b => b.ISBN,
+                (lj, b) => new 
+                { 
+                    Id = lj.loan.Id, 
+                    ISBN = b.ISBN, 
+                    Title = b.Title, 
+                    DueDate = lj.loan.DueDate 
+                }
+            )
             .OrderBy(l => l.DueDate)
             .Select(l => new LoanDto
             (
                 l.Id,
-                l.Book.ISBN,
-                l.Book.Title,
-                l.UserId,
-                l.User.LibraryUser.DisplayName!,
-                l.LoanDate,
-                l.DueDate,
-                l.ReturnedDate
+                l.ISBN,
+                l.Title,
+                l.DueDate
             ))
             .ToArrayAsync();
     }
