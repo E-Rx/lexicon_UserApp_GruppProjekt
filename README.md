@@ -24,6 +24,11 @@ Användare kan bläddra bland böcker, låna eller reservera dem – och adminis
 * **Användare** – kan låna och reservera böcker
 
 ---
+### 🧪 Tester
+
+Projektet innehåller några enhetstester för UserService och BookController för att säkerställa grundläggande funktionalitet.
+
+---
 
 ### 🧰 Tekniker
 
@@ -41,3 +46,6 @@ Användare kan bläddra bland böcker, låna eller reservera dem – och adminis
 2. Kör `Update-Database` i Package Manager Console
 3. Starta applikationen
 
+### ⚠️ Kvar att implementera :
+ * Ett konsolprojekt som visar upp entiteterna genom att kommunicera med en service i Application-projektet.
+ * Fler tester för samtliga tjänster och controllers för att täcka hela applikationens logik.
